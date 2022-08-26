@@ -1,2 +1,5 @@
 class Api::PostsController < ApplicationController
-end
+    def index
+      render json: Post.all
+    end
+  end
