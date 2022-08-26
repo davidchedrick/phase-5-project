@@ -1,13 +1,133 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.link-color {
+  color: rgb(248, 9, 129);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.form-div {
+  background-color: rgb(226, 43, 202);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  font-family: "Lucida Console", "Courier New", monospace;
+}
+
+.logo {
+  width: 300px;
+  height: 300px;
+  border: 2px solid;
+  border-radius: 90%;
+  box-shadow: 5px 3px 40px rgba(0, 0, 0, 0.75),
+      -5px -3px 40px rgba(0, 0, 0, 0.75);
+  background-color: #f3f3f3;
+}
+
+.logo-text {
+  text-shadow: -1px -1px 0 rgb(238, 26, 192);
+}
+
+.loading-div {
+  display: inline-block;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  margin: auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 90%;
+  background-color: rgb(238, 11, 189);
+  position: relative;
+  animation-name: loading;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes loading {
+  0% {
+      left: 0px;
+  }
+  12% {
+      left: 100px;
+  }
+  24% {
+      left: 200px;
+  }
+  36% {
+      left: 100px;
+  }
+  48% {
+      left: 0px;
+  }
+  60% {
+      left: -100px;
+  }
+  72% {
+      left: -200px;
+  }
+  84% {
+      left: -100px;
+  }
+  100% {
+      left: 0px;
+  }
+}
+
+.blog {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.b-title {
+  margin: 25px;
+  padding-top: 20px;
+}
+
+.b-line {
+  color: #000000;
+  background-color: #000000;
+  height: 3px;
+  border-color: #000000;
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+}
+
+.screenText {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  
+  display: none;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+ 
+  transition: background-color 500ms, font-size 500ms;
+  margin-top: 65px;
+  display: flex;
+  animation: overlay-grow 100ms forwards;
+}
+
+
+
+@keyframes overlay-grow {
+  from {
+      background-color: rgba(255, 255, 255, 0);
+     
+  }
+  to {
+      background-color: rgb(253, 253, 253);
+      
+  }
 }
