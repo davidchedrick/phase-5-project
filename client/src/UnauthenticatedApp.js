@@ -1,9 +1,8 @@
 import React from "react";
-import { Container } from "react-bootstrap";
 import { Switch, Route, Redirect } from "react-router-dom";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import LogoArea from "./LogoArea";
+import Login from "./components/start/Login";
+import Signup from "./components/start/Signup";
+import LogoArea from "./components/start/LogoArea";
 
 function UnauthenticatedApp({ setCurrentUser }) {
     return (
