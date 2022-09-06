@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import HomePage from "./components/HomePage";
 
 function AuthenticatedApp({ currentUser, setCurrentUser }) {
     const history = useHistory();
@@ -24,19 +25,7 @@ function AuthenticatedApp({ currentUser, setCurrentUser }) {
         });
     };
 
-    return (
-        <div>
-            <p>
-                <button onClick={handleLogout}>Logout</button>
-            </p>
-            {posts.map(post => (
-                <div key={post.id}>
-                    <h2>{post.title}</h2>
-                    <p>{post.content}</p>
-                </div>
-            ))}
-        </div>
-    );
+    return <HomePage handleLogout={handleLogout} posts={posts} />;
 }
 
 export default AuthenticatedApp;
