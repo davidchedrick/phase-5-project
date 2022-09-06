@@ -1,10 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const fetchCurrectUser = createAsyncThunk("/api/me", async () => {
-    return fetch()
-        .then(response => response.json())
-        .then(data => data);
-});
+export const fetchCurrectUser = createAsyncThunk(
+    "currentUser/fetchPosts",
+    async () => {
+        return fetch("/api/me")
+            .then(response => response.json())
+            .then(data => data);
+    }
+);
 
 const currentUserSlice = createSlice({
     name: "user",

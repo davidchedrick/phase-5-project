@@ -1,17 +1,21 @@
 import "./App.css";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import HomePage from "./components/HomePage";
+import { fetchPosts } from "./components/posts/PostsSlice";
 
 function AuthenticatedApp({ currentUser, setCurrentUser }) {
     const history = useHistory();
-    const [posts, setPosts] = useState([]);
+    const dispatch = useDispatch();
+    // const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        fetch("/api/posts")
-            .then(res => res.json())
-            .then(posts => setPosts(posts));
-    }, []);
+        // fetch("/api/posts")
+        //     .then(res => res.json())
+        //     .then(posts => setPosts(posts));
+        dispatch(fetchPosts());
+    }, [dispatch]);
 
     const handleLogout = () => {
         fetch("/api/logout", {
@@ -25,7 +29,7 @@ function AuthenticatedApp({ currentUser, setCurrentUser }) {
         });
     };
 
-    return <HomePage handleLogout={handleLogout} posts={posts} />;
+    return <HomePage handleLogout={handleLogout} currentUser={currentUser} />;
 }
 
 export default AuthenticatedApp;

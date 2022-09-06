@@ -3,12 +3,13 @@ import Header from "./header/Header";
 import PostsArea from "./posts/PostsArea";
 import TitleArea from "./title/TitleArea";
 
-function HomePage({ posts, handleLogout }) {
+function HomePage({ handleLogout, currentUser }) {
     return (
         <>
-            <Header />
+            {currentUser.username}
+            <Header handleLogout={handleLogout} />
             <TitleArea />
-            <PostsArea handleLogout={handleLogout} posts={posts} />
+            <PostsArea />
             <ChatArea />
         </>
     );
