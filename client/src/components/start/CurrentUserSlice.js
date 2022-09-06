@@ -1,13 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const fetchCurrectUser = createAsyncThunk(
-    "currentUser/fetchPosts",
+export const fetchCurrentUser = createAsyncThunk(
+    "currentUser/fetchCurrentUser",
     async () => {
         return fetch("/api/me")
             .then(response => response.json())
             .then(data => data);
     }
 );
+
+export const handleLogout = createAsyncThunk("currentUser/logout", async () => {
+    fetch("/api/logout", {
+        method: "DELETE",
+        credentials: "include",
+    });
+});
 
 const currentUserSlice = createSlice({
     name: "user",
@@ -26,15 +33,28 @@ const currentUserSlice = createSlice({
     },
     extraReducers: {
         // handle async actions: pending, fulfilled, rejected (for errors)
-        [fetchCurrectUser.pending](state) {
+        [fetchCurrentUser.pending](state) {
             state.status = "loading";
         },
-        [fetchCurrectUser.fulfilled](state, action) {
+        [fetchCurrentUser.fulfilled](state, action) {
             state.currentUser = action.payload;
             state.authChecked = true;
             state.status = "idle";
         },
-        [fetchCurrectUser.rejected](state, action) {
+        [fetchCurrentUser.rejected](state, action) {
+            state.currentUser = action.payload;
+            state.status = "rejected";
+        },
+        [handleLogout.pending](state) {
+            state.status = "loading";
+        },
+        [handleLogout.fulfilled](state, action) {
+            console.log("action logout: ", action);
+            state.currentUser = null;
+            state.authChecked = false;
+            state.status = "loggedOut";
+        },
+        [handleLogout.rejected](state, action) {
             state.currentUser = action.payload;
             state.status = "rejected";
         },

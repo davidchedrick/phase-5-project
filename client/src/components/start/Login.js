@@ -92,7 +92,7 @@ function Login({ setCurrentUser }) {
         </FormDiv>
     );
 }
-const FormDiv = styled.section`
+const FormDiv = styled.div`
     background-color: rgba(242, 17, 193, 0.79);
     display: flex;
     padding-top: 4em;
@@ -102,7 +102,7 @@ const FormDiv = styled.section`
     font-family: "Lucida Console", "Courier New", monospace;
 `;
 
-const CardDiv = styled.section`
+const CardDiv = styled.div`
     background-color: rgba(180, 20, 55, 0.5);
     box-shadow: 5px 3px 30px rgba(0, 0, 0, 0.75),
         -5px -3px 30px rgba(0, 0, 0, 0.75);

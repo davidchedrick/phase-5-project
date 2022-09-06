@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
     const [currentUser, setCurrentUser] = useState(null);
+    console.log("currentUser: ", currentUser);
     const [authChecked, setAuthChecked] = useState(false);
 
     useEffect(() => {
@@ -23,7 +24,7 @@ function App() {
     }, []);
 
     if (!authChecked) {
-        return <div></div>;
+        return <div>"..."</div>;
     }
     return (
         <Router>

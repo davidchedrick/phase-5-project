@@ -1,19 +1,19 @@
 import "./App.css";
-import { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Route, Switch, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import HomePage from "./components/HomePage";
 import { fetchPosts } from "./components/posts/PostsSlice";
+import Post from "./components/posts/Post";
+import AddPost from "./components/posts/AddPost";
 
 function AuthenticatedApp({ currentUser, setCurrentUser }) {
     const history = useHistory();
     const dispatch = useDispatch();
-    // const [posts, setPosts] = useState([]);
+
+    const [fetchRequest, setFetchRequest] = useState(false);
 
     useEffect(() => {
-        // fetch("/api/posts")
-        //     .then(res => res.json())
-        //     .then(posts => setPosts(posts));
         dispatch(fetchPosts());
     }, [dispatch]);
 
@@ -29,7 +29,31 @@ function AuthenticatedApp({ currentUser, setCurrentUser }) {
         });
     };
 
-    return <HomePage handleLogout={handleLogout} currentUser={currentUser} />;
+    return (
+        <Switch>
+            <Route exact path="/">
+                <HomePage
+                    handleLogout={handleLogout}
+                    currentUser={currentUser}
+                />
+                ;
+            </Route>
+            <Route exact path="/posts/:id">
+                <Post
+                    setFetchRequest={setFetchRequest}
+                    fetchRequest={fetchRequest}
+                    currentUser={currentUser}
+                />
+            </Route>
+            <Route exact path="/api/post">
+                <AddPost
+                    currentUser={currentUser}
+                    setFetchRequest={setFetchRequest}
+                    fetchRequest={fetchRequest}
+                />
+            </Route>
+        </Switch>
+    );
 }
 
 export default AuthenticatedApp;
