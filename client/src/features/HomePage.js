@@ -3,6 +3,7 @@ import Header from "./header/Header";
 import PostsArea from "./posts/PostsArea";
 import TitleArea from "./title/TitleArea";
 import styled from "styled-components";
+
 function HomePage({ handleLogout, currentUser }) {
     return (
         <>

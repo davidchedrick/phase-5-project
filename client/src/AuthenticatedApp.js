@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import HomePage from "./features/HomePage";
-import { fetchPosts } from "./features/posts/PostsSlice";
+import { fetchPosts } from "./features/posts/postsSlice";
 import Post from "./features/posts/Post";
 import AddPost from "./features/posts/AddPost";
 

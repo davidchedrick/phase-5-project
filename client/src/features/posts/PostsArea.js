@@ -1,20 +1,21 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import Loading from "../Loading";
 import Posts from "./Posts";
+import { selectAllPosts, getPostsStatus } from "./postsSlice";
 
 function PostsArea({ currentUser }) {
-    const posts = useSelector(state => state.posts.posts);
-    console.log("posts: ", posts);
+    const posts = useSelector(selectAllPosts);
+    const postStatus = useSelector(getPostsStatus);
+    // const error = useSelector(getPostsError);
+    console.log("posts!!: ", posts);
+
+    if (postStatus === "loading") {
+        return <Loading />;
+    }
 
     return (
         <PostsDiv>
-            {/* {posts.map(post => (
-                <div key={post.id}>
-                    <h2>{post.title}</h2>
-                    <p>{post.content}</p>
-                </div>
-            ))} */}
-
             {posts.length === 0 ? (
                 <h1 className="position-absolute top-50 start-50 translate-middle">
                     Add First Post!
