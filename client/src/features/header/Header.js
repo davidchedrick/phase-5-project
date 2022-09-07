@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 function Header({ handleLogout, currentUser }) {
@@ -5,9 +6,15 @@ function Header({ handleLogout, currentUser }) {
         <HeaderDiv>
             <button onClick={handleLogout}>Logout</button>
             <h1>BodhiSpot</h1>
-            <a href={"api/post"} className="btn btn-dark fs-4">
-                +
-            </a>
+
+            <nav>
+                <ul>
+                    <li className="btn btn-dark fs-4">
+                        <Link to="api/post">+</Link>
+                    </li>
+                </ul>
+            </nav>
+
             <p>{currentUser.username}</p>
         </HeaderDiv>
     );

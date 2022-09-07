@@ -1,8 +1,8 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import Login from "./components/start/Login";
-import Signup from "./components/start/Signup";
-import LogoArea from "./components/start/LogoArea";
+import Login from "./features/start/Login";
+import Signup from "./features/start/Signup";
+import LogoArea from "./features/start/LogoArea";
 
 function UnauthenticatedApp({ setCurrentUser }) {
     return (

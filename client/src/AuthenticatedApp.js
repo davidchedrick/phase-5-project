@@ -2,10 +2,10 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import HomePage from "./components/HomePage";
-import { fetchPosts } from "./components/posts/PostsSlice";
-import Post from "./components/posts/Post";
-import AddPost from "./components/posts/AddPost";
+import HomePage from "./features/HomePage";
+import { fetchPosts } from "./features/posts/PostsSlice";
+import Post from "./features/posts/Post";
+import AddPost from "./features/posts/AddPost";
 
 function AuthenticatedApp({ currentUser, setCurrentUser }) {
     const history = useHistory();
