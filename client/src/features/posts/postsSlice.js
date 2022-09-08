@@ -41,7 +41,10 @@ export const updatePost = createAsyncThunk(
                 credentials: "include",
                 body: JSON.stringify(formData),
             });
-            if (res.ok) return formData.id;
+            if (res.ok) {
+                console.log("vvv", formData);
+                return formData;
+            }
         } catch (err) {
             return err.message;
         }
@@ -107,10 +110,14 @@ const postsSlice = createSlice({
             state.posts.unshift(action.payload);
         },
         [updatePost.fulfilled](state, action) {
+            console.log("action: ", action);
             state.status = "succeeded";
-            const { id } = action.payload;
-            const posts = state.posts.filter(post => post.id !== id);
-            state.posts = [...posts, action.payload];
+            const id = action.payload.id;
+            console.log("id: ", id);
+            const udpatedPosts = state.posts.map(post =>
+                post.id === id ? action.payload : post
+            );
+            state.posts = udpatedPosts;
         },
         [deletePost.fulfilled](state, action) {
             const { id } = action.payload;

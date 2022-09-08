@@ -6,6 +6,7 @@ import HomePage from "./features/HomePage";
 import { fetchPosts } from "./features/posts/postsSlice";
 import Post from "./features/posts/Post";
 import AddPost from "./features/posts/AddPost";
+import PostEditor from "./features/posts/EditPost";
 
 function AuthenticatedApp({ currentUser, setCurrentUser }) {
     const history = useHistory();
@@ -40,6 +41,13 @@ function AuthenticatedApp({ currentUser, setCurrentUser }) {
             </Route>
             <Route exact path="/posts/:id">
                 <Post
+                    setFetchRequest={setFetchRequest}
+                    fetchRequest={fetchRequest}
+                    currentUser={currentUser}
+                />
+            </Route>
+            <Route exact path="/posts/edit/:id">
+                <PostEditor
                     setFetchRequest={setFetchRequest}
                     fetchRequest={fetchRequest}
                     currentUser={currentUser}
