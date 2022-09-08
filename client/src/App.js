@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AuthenticatedApp from "./AuthenticatedApp";
 import UnauthenticatedApp from "./UnauthenticatedApp";
 import { BrowserRouter as Router } from "react-router-dom";
+import Loading from "./features/Loading";
 
 function App() {
     const [currentUser, setCurrentUser] = useState(null);
@@ -24,7 +25,11 @@ function App() {
     }, []);
 
     if (!authChecked) {
-        return <div>"..."</div>;
+        return (
+            <div>
+                <Loading />
+            </div>
+        );
     }
     return (
         <Router>
