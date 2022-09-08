@@ -10,20 +10,7 @@ function DeletePost({ fetchRequest, setFetchRequest }) {
     const post = useSelector(state => selectPostById(state, Number(id)));
     const [requestStatus, setRequestStatus] = useState("idle");
     const dispatch = useDispatch();
-    // function deletePost(id) {
-    //     return fetch(`/api/posts/${id}`, {
-    //         method: "DELETE",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         credentials: "include",
-    //     }).then(res => {
-    //         if (res.ok) {
-    //             setFetchRequest(fetchRequest => !fetchRequest);
-    //             history.push("/");
-    //         }
-    //     });
-    // }
+
     const selectDeletePost = () => {
         try {
             setRequestStatus("pending");

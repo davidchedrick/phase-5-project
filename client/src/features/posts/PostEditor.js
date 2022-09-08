@@ -1,43 +1,67 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useHistory, useParams } from "react-router";
+import { selectPostById, updatePost, deletePost } from "./postsSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function PostEditor({ blog, fetchRequest, setFetchRequest }) {
-    const [title, setTitle] = useState(String(blog.title));
-    const [content, setContent] = useState(String(blog.content));
     const { id } = useParams();
+    const post = useSelector(state => selectPostById(state, Number(id)));
+    const [title, setTitle] = useState(String(post.title));
+    const [content, setContent] = useState(String(post.content));
     const history = useHistory();
+    const dispatch = useDispatch();
+    const [requestStatus, setRequestStatus] = useState("idle");
+    const canSave = [title, content].every(Boolean) && requestStatus === "idle";
 
     const handleSubmit = e => {
         e.preventDefault();
         editPost({
             title,
             content,
+            id: post.id,
         });
     };
 
-    function editPost(formData) {
-        return fetch(`/api/posts/${id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify(formData),
-        })
-            .then(res => {
-                if (res.ok) {
-                    console.log("res: ", res);
-                } else {
-                    return res.json().then(errors => Promise.reject(errors));
-                }
-            })
-            .then(post => {
-                console.log("post: ", post);
-                setFetchRequest(fetchRequest => !fetchRequest);
-                history.goBack();
-            });
-    }
+    const editPost = formData => {
+        if (canSave) {
+            try {
+                setRequestStatus("pending");
+                dispatch(updatePost(formData)).unwrap();
+
+                setTitle("");
+                setContent("");
+                history.push("/");
+            } catch (err) {
+                console.error("Failed to save the post", err);
+            } finally {
+                setRequestStatus("idle");
+            }
+        }
+    };
+
+    // function editPost(formData) {
+    //     return fetch(`/api/posts/${id}`, {
+    //         method: "PATCH",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         credentials: "include",
+    //         body: JSON.stringify(formData),
+    //     })
+    //         .then(res => {
+    //             if (res.ok) {
+    //                 console.log("res: ", res);
+    //             } else {
+    //                 return res.json().then(errors => Promise.reject(errors));
+    //             }
+    //         })
+    //         .then(post => {
+    //             console.log("post: ", post);
+    //             setFetchRequest(fetchRequest => !fetchRequest);
+    //             history.goBack();
+    //         });
+    // }
 
     return (
         <div className="m-2">

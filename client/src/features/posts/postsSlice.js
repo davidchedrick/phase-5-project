@@ -28,6 +28,26 @@ export const addNewPost = createAsyncThunk(
     }
 );
 
+export const updatePost = createAsyncThunk(
+    "posts/updatePost",
+    async formData => {
+        console.log("formDatavvvv: ", formData);
+        try {
+            const res = await fetch(`/api/posts/${formData.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify(formData),
+            });
+            if (res.ok) return formData.id;
+        } catch (err) {
+            return err.message;
+        }
+    }
+);
+
 export const deletePost = createAsyncThunk(
     "posts/deletePost",
     async selectedPost => {
@@ -51,24 +71,24 @@ const postsSlice = createSlice({
     name: "posts",
     initialState,
     reducers: {
-        postAdded: {
-            reducer(state, action) {
-                state.posts.push(action.payload);
-            },
-            prepare(title, content, user_id) {
-                return {
-                    payload: {
-                        title,
-                        content,
-                        user_id,
-                    },
-                };
-            },
-        },
-        postsRemoved(state, action) {
-            const index = state.posts.findIndex(r => r.id === action.payload);
-            state.posts.splice(index, 1);
-        },
+        // postAdded: {
+        //     reducer(state, action) {
+        //         state.posts.push(action.payload);
+        //     },
+        //     prepare(title, content, user_id) {
+        //         return {
+        //             payload: {
+        //                 title,
+        //                 content,
+        //                 user_id,
+        //             },
+        //         };
+        //     },
+        // },
+        // postsRemoved(state, action) {
+        //     const index = state.posts.findIndex(r => r.id === action.payload);
+        //     state.posts.splice(index, 1);
+        // },
     },
     extraReducers: {
         [fetchPosts.pending](state) {
@@ -86,16 +106,15 @@ const postsSlice = createSlice({
             state.status = "succeeded";
             state.posts.unshift(action.payload);
         },
-        [deletePost.fulfilled](state, action) {
-            // if (!action.payload?.id) {
-            //     console.log("Delete could not complete");
-            //     console.log(action.payload);
-            //     return;
-            // }
+        [updatePost.fulfilled](state, action) {
+            state.status = "succeeded";
             const { id } = action.payload;
-            console.log("id:***** ", id);
             const posts = state.posts.filter(post => post.id !== id);
-            console.log("posts!@!@!: ", posts);
+            state.posts = [...posts, action.payload];
+        },
+        [deletePost.fulfilled](state, action) {
+            const { id } = action.payload;
+            const posts = state.posts.filter(post => post.id !== id);
             state.posts = posts;
         },
     },
