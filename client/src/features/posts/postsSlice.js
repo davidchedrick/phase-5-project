@@ -7,15 +7,15 @@ const initialState = {
 };
 
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
-    return fetch("/api/posts")
-        .then(response => response.json())
-        .then(data => data);
+    const res = await fetch("/api/posts");
+    const data = await res.json();
+    return data;
 });
 
 export const addNewPost = createAsyncThunk(
     "posts/addNewPost",
     async formData => {
-        return fetch("/api/posts", {
+        const res = await fetch("/api/posts", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -23,6 +23,27 @@ export const addNewPost = createAsyncThunk(
             credentials: "include",
             body: JSON.stringify(formData),
         });
+        const data = await res.json();
+        return data;
+    }
+);
+
+export const deletePost = createAsyncThunk(
+    "posts/deletePost",
+    async selectedPost => {
+        const { id } = selectedPost;
+        try {
+            const res = await fetch(`/api/posts/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+            });
+            if (res.ok) return selectedPost;
+        } catch (err) {
+            return err.message;
+        }
     }
 );
 
@@ -63,24 +84,23 @@ const postsSlice = createSlice({
         },
         [addNewPost.fulfilled](state, action) {
             state.status = "succeeded";
-            // action.payload.user_id = Number(action.payload.userId)
-            console.log("tytytytyt", action.payload);
-            // state.posts.push(action.payload)
+            state.posts.unshift(action.payload);
+        },
+        [deletePost.fulfilled](state, action) {
+            // if (!action.payload?.id) {
+            //     console.log("Delete could not complete");
+            //     console.log(action.payload);
+            //     return;
+            // }
+            const { id } = action.payload;
+            console.log("id:***** ", id);
+            const posts = state.posts.filter(post => post.id !== id);
+            console.log("posts!@!@!: ", posts);
+            state.posts = posts;
         },
     },
 });
-// .then(res => {
-//     if (res.ok) {
-//         return res.json();
-//     } else {
-//         return res.json().then(errors => Promise.reject(errors));
-//     }
-// })
-// .then(post => {
-//     console.log("post: ", post);
-//     setFetchRequest(fetchRequest => !fetchRequest);
-//     history.push("/");
-// });
+
 export const selectAllPosts = state => state.posts.posts;
 export const getPostsStatus = state => state.posts.status;
 export const getPostsError = state => state.posts.error;
@@ -88,7 +108,7 @@ export const getPostsError = state => state.posts.error;
 export const selectPostById = (state, postId) => {
     return state.posts.posts.find(post => post.id === postId);
 };
-console.log("sssss", selectPostById);
+
 export const { postsAdded, postsRemoved } = postsSlice.actions;
 
 export default postsSlice.reducer;

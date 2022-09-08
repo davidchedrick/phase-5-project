@@ -1,12 +1,20 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useHistory } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { addNewPost } from "./postsSlice";
 
 function AddPost({ currentUser, fetchRequest, setFetchRequest }) {
     const [title, setTitle] = useState("");
+
     const [content, setContent] = useState("");
 
+    const [addRequestStatus, setAddRequestStatus] = useState("idle");
+    const dispatch = useDispatch();
     const history = useHistory();
+    // const users = useSelector(selectAllUsers)
+    const canSave =
+        [title, content].every(Boolean) && addRequestStatus === "idle";
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -17,28 +25,54 @@ function AddPost({ currentUser, fetchRequest, setFetchRequest }) {
         });
     };
 
-    function createPost(formData) {
-        return fetch("/api/posts", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify(formData),
-        })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    return res.json().then(errors => Promise.reject(errors));
-                }
-            })
-            .then(post => {
-                console.log("post: ", post);
-                setFetchRequest(fetchRequest => !fetchRequest);
+    const createPost = formData => {
+        if (canSave) {
+            try {
+                setAddRequestStatus("pending");
+                dispatch(addNewPost(formData)).unwrap();
+
+                setTitle("");
+                setContent("");
                 history.push("/");
-            });
-    }
+            } catch (err) {
+                console.error("Failed to save the post", err);
+            } finally {
+                setAddRequestStatus("idle");
+            }
+        }
+    };
+
+    // const handleSubmit = e => {
+    //     e.preventDefault();
+    //     createPost({
+    //         title,
+    //         content,
+    //         user_id: currentUser.id,
+    //     });
+    // };
+
+    // function createPost(formData) {
+    //     return fetch("/api/posts", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         credentials: "include",
+    //         body: JSON.stringify(formData),
+    //     })
+    //         .then(res => {
+    //             if (res.ok) {
+    //                 return res.json();
+    //             } else {
+    //                 return res.json().then(errors => Promise.reject(errors));
+    //             }
+    //         })
+    //         .then(post => {
+    //             console.log("post: ", post);
+    //             setFetchRequest(fetchRequest => !fetchRequest);
+    //             history.push("/");
+    //         });
+    // }
 
     return (
         <div className="m-2">
