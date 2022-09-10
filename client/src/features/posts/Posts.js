@@ -1,7 +1,7 @@
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-function Posts({ post }) {
+const Posts = ({ post }) => {
     return (
         <Card className="text-center m-3">
             <Card.Header className="">
@@ -19,6 +19,6 @@ function Posts({ post }) {
             <Card.Footer className="text-muted">{post.date}</Card.Footer>
         </Card>
     );
-}
+};
 
 export default Posts;

@@ -13,21 +13,17 @@ function Login() {
     const [errorMessage, setErrorMessage] = useState("");
     const [addRequestStatus, setAddRequestStatus] = useState("idle");
     const [cantClick, setCantClick] = useState(true);
-    console.log("cantClick: ", cantClick);
     const dispatch = useDispatch();
 
     const canLogIn =
         [username, password].length >= 1 && addRequestStatus === "idle";
 
-    // const canSave =
-    //     [username, password].every(Boolean) && addRequestStatus === "idle";
-
     const handleSubmit = e => {
         e.preventDefault();
-        lodIn({ username, password });
+        logIn({ username, password });
     };
 
-    const lodIn = formData => {
+    const logIn = formData => {
         if (canLogIn) {
             try {
                 setAddRequestStatus("pending");

@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import Loading from "../Loading";
+import Comments from "./Comments";
 import DeletePost from "./DeletePost";
 import { selectPostById } from "./postsSlice";
 // import Comments from "./Comments";
@@ -62,12 +63,7 @@ function Post({ currentUser }) {
                     <hr className="b-line" />
                     <div>{post.content}</div>
                 </article>
-                {/* <Comments
-                        post={post}
-                        currentUser={currentUser}
-                        setFetchRequest={setFetchRequest}
-                        fetchRequest={fetchRequest}
-                    /> */}
+                <Comments post={post} currentUser={currentUser} />
             </>
         </>
     );

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-function ChatArea() {
+const ChatArea = () => {
     return <ChatDiv>ChatArea.</ChatDiv>;
-}
+};
 
 const ChatDiv = styled.div`
     background-color: rgba(35, 78, 214, 0.5);

@@ -3,9 +3,8 @@ import { useHistory, useParams } from "react-router";
 
 import { useDispatch, useSelector } from "react-redux";
 import { selectPostById, deletePost } from "./postsSlice";
-import { Link } from "react-router-dom";
 
-function DeletePost() {
+const DeletePost = () => {
     const history = useHistory();
     const { id } = useParams();
     const post = useSelector(state => selectPostById(state, Number(id)));
@@ -31,6 +30,6 @@ function DeletePost() {
             </Button>
         </>
     );
-}
+};
 
 export default DeletePost;

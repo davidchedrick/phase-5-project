@@ -4,7 +4,7 @@ import Loading from "../Loading";
 import Posts from "./Posts";
 import { selectAllPosts, getPostsStatus } from "./postsSlice";
 
-function PostsArea({ currentUser }) {
+const PostsArea = ({ currentUser }) => {
     const posts = useSelector(selectAllPosts);
     console.log("posts: ", posts);
     const postStatus = useSelector(getPostsStatus);
@@ -32,7 +32,7 @@ function PostsArea({ currentUser }) {
             )}
         </PostsDiv>
     );
-}
+};
 
 const PostsDiv = styled.div`
     display: flex;
