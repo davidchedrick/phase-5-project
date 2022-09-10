@@ -31,7 +31,6 @@ export const addNewPost = createAsyncThunk(
 export const updatePost = createAsyncThunk(
     "posts/updatePost",
     async formData => {
-        console.log("formDatavvvv: ", formData);
         try {
             const res = await fetch(`/api/posts/${formData.id}`, {
                 method: "PATCH",

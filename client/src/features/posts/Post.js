@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Loading from "../Loading";
 import DeletePost from "./DeletePost";
 import { selectPostById } from "./postsSlice";
 // import Comments from "./Comments";
 
 function Post({ currentUser }) {
+    console.log("currentUser POST: ", currentUser);
     const [isEditing, setIsEditing] = useState(false);
     const { id } = useParams();
 
     const post = useSelector(state => selectPostById(state, Number(id)));
     console.log("post: ", post);
-
     if (!post) {
         return <Loading />;
     }
@@ -41,13 +41,11 @@ function Post({ currentUser }) {
             </Button>
             {isEditing ? (
                 <div className="m-3 pt-5 d-grid gap-2">
-                    <Button
-                        variant="warning"
-                        size="lg"
-                        href={`/posts/edit/${post.id}`}
-                    >
-                        Edit
-                    </Button>
+                    <Link to={`/posts/edit/${post.id}`}>
+                        <Button variant="warning" size="lg">
+                            Edit
+                        </Button>
+                    </Link>
                     <DeletePost />
                 </div>
             ) : null}

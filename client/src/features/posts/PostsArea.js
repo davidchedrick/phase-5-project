@@ -6,9 +6,8 @@ import { selectAllPosts, getPostsStatus } from "./postsSlice";
 
 function PostsArea({ currentUser }) {
     const posts = useSelector(selectAllPosts);
+    console.log("posts: ", posts);
     const postStatus = useSelector(getPostsStatus);
-    // const error = useSelector(getPostsError);
-    console.log("posts!!: ", posts);
 
     if (postStatus === "loading") {
         return <Loading />;

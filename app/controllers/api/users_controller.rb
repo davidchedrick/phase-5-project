@@ -1,7 +1,6 @@
 class Api::UsersController < ApplicationController
     skip_before_action :confirm_authentication
     
-    # get '/api/me'
     def show
       if current_user
         render json: current_user, status: :ok
@@ -10,7 +9,6 @@ class Api::UsersController < ApplicationController
       end
     end
   
-    # post '/api/signup'
     def create
       user = User.create(user_params)
       if user.valid?

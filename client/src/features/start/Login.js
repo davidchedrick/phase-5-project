@@ -2,40 +2,50 @@ import { Alert, Button } from "react-bootstrap";
 import React, { useState } from "react";
 import { Redirect, useHistory, Link } from "react-router-dom";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { addNewSession } from "./currentUserSlice";
 
-function Login({ setCurrentUser }) {
+function Login() {
     const history = useHistory();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [userError, setUserError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    const [addRequestStatus, setAddRequestStatus] = useState("idle");
+    const [cantClick, setCantClick] = useState(true);
+    console.log("cantClick: ", cantClick);
+    const dispatch = useDispatch();
 
-    const handleSubmit = event => {
-        event.preventDefault();
-        fetch("/api/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ username, password }),
-        }).then(res => {
-            if (res.ok) {
-                res.json().then(user => {
-                    setCurrentUser(user);
-                    history.push("/");
-                });
-            } else {
-                res.json().then(errors => {
-                    console.error(errors);
+    const canLogIn =
+        [username, password].length >= 1 && addRequestStatus === "idle";
 
-                    if (errors.error) {
-                        setUserError(true);
-                        setErrorMessage(errors.error);
-                    }
-                });
-            }
-        });
+    // const canSave =
+    //     [username, password].every(Boolean) && addRequestStatus === "idle";
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        lodIn({ username, password });
     };
+
+    const lodIn = formData => {
+        if (canLogIn) {
+            try {
+                setAddRequestStatus("pending");
+                dispatch(addNewSession(formData)).unwrap();
+
+                setUsername("");
+                setPassword("");
+                setCantClick(true);
+                history.push("/");
+            } catch (errors) {
+                setUserError(true);
+                setErrorMessage(errors.error);
+            } finally {
+                setAddRequestStatus("idle");
+            }
+        }
+    };
+
     return (
         <FormDiv>
             <Redirect to="/" />
@@ -74,10 +84,16 @@ function Login({ setCurrentUser }) {
                             onChange={e => {
                                 setPassword(e.target.value);
                                 setUserError(false);
+                                setCantClick(false);
                             }}
                         />
                     </p>
-                    <Button type="submit" size="lg" variant="success">
+                    <Button
+                        disabled={cantClick}
+                        type="submit"
+                        size="lg"
+                        variant="success"
+                    >
                         Log In
                     </Button>
                     <p className="p-4">--- OR ---</p>

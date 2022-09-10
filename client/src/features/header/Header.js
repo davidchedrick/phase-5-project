@@ -1,3 +1,4 @@
+import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -10,7 +11,9 @@ function Header({ handleLogout, currentUser }) {
             <nav>
                 <ul>
                     <li className="btn btn-dark fs-4">
-                        <Link to="api/post">+</Link>
+                        <Link to="api/post">
+                            <Button variant="outline-danger">+</Button>
+                        </Link>
                     </li>
                 </ul>
             </nav>
