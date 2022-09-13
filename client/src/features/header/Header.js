@@ -4,21 +4,45 @@ import styled from "styled-components";
 
 function Header({ handleLogout, currentUser }) {
     return (
-        <HeaderDiv>
-            <button onClick={handleLogout}>Logout</button>
+        <HeaderDiv className="sticky-top p-1 ">
+            <BtnDiv className="btn btn-dark" onClick={handleLogout}>
+                <Button
+                    className="btn-sm"
+                    variant="outline-danger"
+                    onClick={handleLogout}
+                >
+                    L
+                </Button>
+                <p>Log Out</p>
+            </BtnDiv>
+
             <h1>BodhiSpot</h1>
+            <Link to="api/post">
+                <BtnDiv className="btn btn-dark">
+                    <Button className="btn-sm" variant="outline-danger">
+                        +
+                    </Button>
+                    <p>Post</p>
+                </BtnDiv>
+            </Link>
 
-            <nav>
-                <ul>
-                    <li className="btn btn-dark fs-4">
-                        <Link to="api/post">
-                            <Button variant="outline-danger">+</Button>
-                        </Link>
-                    </li>
-                </ul>
-            </nav>
+            <Link to="">
+                <BtnDiv className="btn btn-dark">
+                    <Button className="btn-sm" variant="outline-danger">
+                        <i class="bi bi-envelope"></i>
+                    </Button>
+                    <p>Message</p>
+                </BtnDiv>
+            </Link>
 
-            <p>{currentUser.username}</p>
+            <Link to="">
+                <BtnDiv className="btn btn-dark">
+                    <Button className="btn-sm" variant="outline-danger">
+                        {currentUser.username[0]}
+                    </Button>
+                    <p>{currentUser.username}</p>
+                </BtnDiv>
+            </Link>
         </HeaderDiv>
     );
 }
@@ -26,7 +50,19 @@ function Header({ handleLogout, currentUser }) {
 const HeaderDiv = styled.div`
     display: flex;
     justify-content: space-between;
-    background-color: rgba(180, 20, 55, 0.5);
+    flex-direction: row;
+    align-items: center;
+    height: 65px;
+    border: 1px solid;
+    background-color: rgba(150, 10, 50, 1);
+    font-size: x-small;
+`;
+
+const BtnDiv = styled.div`
+    flex-direction: column;
+    align-items: center;
+    height: 65px;
+    font-size: small;
 `;
 
 export default Header;

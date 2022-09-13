@@ -18,7 +18,7 @@ function HomePage({ handleLogout, currentUser }) {
 }
 const AreaDiv = styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 
     background-color: rgba(10, 210, 115, 0.5);
 `;

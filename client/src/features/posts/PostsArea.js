@@ -37,7 +37,14 @@ const PostsArea = ({ currentUser }) => {
 const PostsDiv = styled.div`
     display: flex;
     justify-content: space-between;
-    background-color: rgba(10, 210, 115, 0.5);
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    height: 100%;
+    border: 2px solid;
+    box-shadow: 5px 3px 40px rgba(0, 0, 0, 0.75),
+        -5px -3px 40px rgba(0, 0, 0, 0.75);
+    background-color: rgb(238, 26, 192);
 `;
 
 export default PostsArea;
