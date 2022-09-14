@@ -7,6 +7,7 @@ import EditForm from "./EditFom";
 function PostEditor() {
     const { id } = useParams();
     const post = useSelector(state => selectPostById(state, Number(id)));
+    console.log("post: ", post);
 
     if (!post) {
         return <Loading />;

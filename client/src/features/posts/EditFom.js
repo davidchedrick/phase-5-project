@@ -5,6 +5,7 @@ import { useHistory } from "react-router";
 import { updatePost } from "./postsSlice";
 
 function EditForm({ post, id }) {
+    console.log("post: edit", post);
     const history = useHistory();
     const dispatch = useDispatch();
     const [requestStatus, setRequestStatus] = useState("idle");
