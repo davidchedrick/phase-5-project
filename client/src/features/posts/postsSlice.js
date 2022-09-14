@@ -41,7 +41,6 @@ export const updatePost = createAsyncThunk(
                 body: JSON.stringify(formData),
             });
             if (res.ok) {
-                console.log("vvv", formData);
                 return formData;
             }
         } catch (err) {
@@ -112,7 +111,6 @@ const postsSlice = createSlice({
             console.log("action: ", action);
             state.status = "succeeded";
             const id = action.payload.id;
-            console.log("id: ", id);
             const udpatedPosts = state.posts.map(post =>
                 post.id === id ? action.payload : post
             );

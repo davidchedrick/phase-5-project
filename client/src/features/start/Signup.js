@@ -30,34 +30,6 @@ function Signup({ setCurrentUser }) {
     };
 
     const signUp = formData => {
-        // fetch("/api/signup", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(formData),
-        // }).then(res => {
-        //     if (res.ok) {
-        //         res.json().then(user => {
-        //             setCurrentUser(user);
-        //             history.push("/");
-        //         });
-        //     } else {
-        //         res.json().then(errors => {
-        //             if (errors.error.username) {
-        //                 setUserError(true);
-        //                 setErrorMessage("Username Unavailable");
-        //             }
-
-        //             if (errors.error.password_confirmation) {
-        //                 setPasswordError(true);
-        //                 setErrorMessage(errors.error.password_confirmation[0]);
-        //                 setPassword("");
-        //                 setPasswordConfirmation("");
-        //             }
-        //         });
-        //     }
-        // });
         console.log("formData: ", formData);
         if (canLogIn) {
             try {

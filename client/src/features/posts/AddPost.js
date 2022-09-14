@@ -6,9 +6,7 @@ import { addNewPost } from "./postsSlice";
 
 function AddPost({ currentUser }) {
     const [title, setTitle] = useState("");
-
     const [content, setContent] = useState("");
-
     const [addRequestStatus, setAddRequestStatus] = useState("idle");
     const dispatch = useDispatch();
     const history = useHistory();

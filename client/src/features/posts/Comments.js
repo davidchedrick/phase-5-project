@@ -1,10 +1,17 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-// import Comment from "./Comment";
+import { useDispatch } from "react-redux";
+import { addNewComment, fetchComments } from "./commentsSlice";
+import Comment from "./Comment";
+import { useHistory } from "react-router";
 
 function Comments({ post, currentUser }) {
     const [isCommenting, setIsCommenting] = useState(false);
     const [content, setContent] = useState("");
+    const [addRequestStatus, setAddRequestStatus] = useState("idle");
+    // const [cantClick, setCantClick] = useState(true);
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -14,6 +21,8 @@ function Comments({ post, currentUser }) {
             user_id: currentUser.id,
         });
     };
+
+    const canSave = [content].every(Boolean) && addRequestStatus === "idle";
 
     function addComment(formData) {
         // return fetch("/api/comments", {
@@ -37,15 +46,24 @@ function Comments({ post, currentUser }) {
         //         setContent('')
         //         setFetchRequest(fetchRequest => !fetchRequest);
         //     });
+        if (canSave) {
+            try {
+                setAddRequestStatus("pending");
+                dispatch(addNewComment(formData)).unwrap();
+
+                setContent("");
+                // dispatch(fetchComments());
+                history.push(`/posts/${post.id}`);
+            } catch (err) {
+                console.error("Failed to save the comment", err);
+            } finally {
+                setAddRequestStatus("idle");
+            }
+        }
     }
 
     return (
         <>
-            {/* <h5 className="m-3">{post.comments.length} Comments:</h5> */}
-            {/* {post.comments.map(comment => (
-                <Comment key={comment.id} comment={comment} />
-                ))} */}
-
             <Button
                 variant="danger"
                 className="m-3 mb-2"
@@ -77,6 +95,11 @@ function Comments({ post, currentUser }) {
                     </Form>
                 </>
             ) : null}
+
+            <h5 className="m-3">{post.comments.length} Comments:</h5>
+            {post.comments.map(comment => (
+                <Comment key={comment.id} comment={comment} />
+            ))}
         </>
     );
 }
