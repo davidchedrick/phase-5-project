@@ -1,7 +1,7 @@
 class Api::SessionsController < ApplicationController
     skip_before_action :confirm_authentication
   
-    # post '/login'
+  
     def create
       
       user = User.find_by_username(params[:username])
@@ -13,7 +13,7 @@ class Api::SessionsController < ApplicationController
       end
     end
   
-    # delete '/logout'
+  
     def destroy
       session.delete(:user_id)
     end
