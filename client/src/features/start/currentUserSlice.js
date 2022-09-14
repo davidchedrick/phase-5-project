@@ -31,7 +31,23 @@ export const addNewSession = createAsyncThunk(
             body: JSON.stringify(formData),
         });
         const data = await res.json();
-        console.log("data: ", data);
+        console.log("data log in: ", data);
+        return data;
+    }
+);
+
+export const addNewUser = createAsyncThunk(
+    "currentUser/addNewUser",
+    async formData => {
+        const res = await fetch("/api/signup", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        });
+        const data = await res.json();
+        console.log("data sign up: ", data);
         return data;
     }
 );
@@ -58,24 +74,19 @@ const currentUserSlice = createSlice({
         [fetchCurrentUser.pending](state) {
             state.status = "loading";
             state.authChecked = false;
-            console.log("33333", state.authChecked);
         },
         [fetchCurrentUser.fulfilled](state, action) {
-            console.log("actionbbb: ", action);
+            console.log("action fetch curent: ", action);
             state.currentUser = action.payload;
 
             if (action.payload.error === "No active session") {
-                console.log(7777777);
                 state.authChecked = false;
             } else {
                 state.authChecked = true;
-                console.log(88888888);
             }
-            console.log(999999);
             state.status = "idle";
         },
         [fetchCurrentUser.rejected](state, action) {
-            console.log("catttttttt");
             state.currentUser = null;
             state.authChecked = false;
             state.status = "rejected";
@@ -83,6 +94,16 @@ const currentUserSlice = createSlice({
         [addNewSession.fulfilled](state, action) {
             state.status = "succeeded";
             state.currentUser = action.payload;
+        },
+        [addNewUser.fulfilled](state, action) {
+            state.status = "succeeded";
+            state.currentUser = action.payload;
+            if (action.payload.error === "No active session") {
+                state.authChecked = false;
+            } else {
+                state.authChecked = true;
+            }
+            state.status = "idle";
         },
         [endSession.pending](state) {
             state.status = "loading";
