@@ -6,10 +6,8 @@ import Loading from "../Loading";
 import Comments from "./Comments";
 import DeletePost from "./DeletePost";
 import { selectPostById } from "./postsSlice";
-// import Comments from "./Comments";
 
 function Post({ currentUser }) {
-    console.log("currentUser POST: ", currentUser);
     const [isEditing, setIsEditing] = useState(false);
     const { id } = useParams();
 

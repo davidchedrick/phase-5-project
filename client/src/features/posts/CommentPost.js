@@ -2,11 +2,12 @@ import { useParams } from "react-router";
 import { selectPostById } from "./postsSlice";
 import { useSelector } from "react-redux";
 import Loading from "../Loading";
-import EditForm from "./EditFom";
+import CommentsForm from "./CommentsForm";
 
-function EditPost() {
+function CommentPost({ currentUser }) {
     const { id } = useParams();
     const post = useSelector(state => selectPostById(state, Number(id)));
+    console.log("post: ", post);
 
     if (!post) {
         return <Loading />;
@@ -14,10 +15,10 @@ function EditPost() {
 
     return (
         <div className="m-2">
-            <h3 className=" d-flex justify-content-center">Edit Your Blog</h3>
-            <EditForm post={post} id={id} />
+            <h3 className=" d-flex justify-content-center">Comment</h3>
+            <CommentsForm post={post} id={id} currentUser={currentUser} />
         </div>
     );
 }
 
-export default EditPost;
+export default CommentPost;

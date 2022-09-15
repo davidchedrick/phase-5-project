@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 import { updatePost } from "./postsSlice";
 
 function EditForm({ post, id }) {
-    console.log("post: edit", post);
     const history = useHistory();
     const dispatch = useDispatch();
     const [requestStatus, setRequestStatus] = useState("idle");
@@ -68,9 +68,9 @@ function EditForm({ post, id }) {
                 Submit
             </Button>
 
-            <a href={"/"} className="btn btn-dark m-1">
-                Cancel
-            </a>
+            <Link to={`/posts/${post.id}`}>
+                <Button className="btn btn-dark m-1">Cancel</Button>
+            </Link>
         </Form>
     );
 }

@@ -1,72 +1,76 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { addNewComment } from "./commentsSlice";
+// import { useDispatch } from "react-redux";
+// import { addNewComment } from "./commentsSlice";
 import Comment from "./Comment";
-import { useHistory } from "react-router";
-import CommentsForm from "./CommentsForm";
+// import { useHistory } from "react-router";
+// import CommentsForm from "./CommentsForm";
+import { Link } from "react-router-dom";
 
 function Comments({ post, currentUser }) {
-    const [isCommenting, setIsCommenting] = useState(false);
-    const [content, setContent] = useState("");
-    const [addRequestStatus, setAddRequestStatus] = useState("idle");
+    // const [isCommenting, setIsCommenting] = useState(false);
+    // const [content, setContent] = useState("");
+    // const [addRequestStatus, setAddRequestStatus] = useState("idle");
 
     // const [cantClick, setCantClick] = useState(true);
-    const dispatch = useDispatch();
-    const history = useHistory();
+    // const dispatch = useDispatch();
+    // const history = useHistory();
 
-    useEffect(() => {
-        setAddRequestStatus("idle");
-    }, [isCommenting]);
+    // useEffect(() => {
+    //     setAddRequestStatus("idle");
+    // }, [isCommenting]);
 
-    const handleSubmit = e => {
-        e.preventDefault();
-        addComment({
-            content,
-            post_id: post.id,
-            user_id: currentUser.id,
-        });
-    };
+    // const handleSubmit = e => {
+    //     e.preventDefault();
+    //     addComment({
+    //         content,
+    //         post_id: post.id,
+    //         user_id: currentUser.id,
+    //     });
+    // };
 
-    const canSave = [content].every(Boolean) && addRequestStatus === "idle";
+    // const canSave = [content].every(Boolean) && addRequestStatus === "idle";
 
-    function addComment(formData) {
-        if (canSave) {
-            try {
-                setAddRequestStatus("pending");
-                dispatch(addNewComment(formData)).unwrap();
+    // function addComment(formData) {
+    //     if (canSave) {
+    //         try {
+    //             setAddRequestStatus("pending");
+    //             dispatch(addNewComment(formData)).unwrap();
 
-                setContent("");
-            } catch (err) {
-                console.error("Failed to save the comment", err);
-            } finally {
-                setAddRequestStatus("idle");
-                setIsCommenting(false);
+    //             setContent("");
+    //         } catch (err) {
+    //             console.error("Failed to save the comment", err);
+    //         } finally {
+    //             setAddRequestStatus("idle");
+    //             setIsCommenting(false);
 
-                // history.push(`/posts/${post.id}`);
-            }
-        }
-    }
+    //             // history.push(`/posts/${post.id}`);
+    //         }
+    //     }
+    // }
 
     return (
         <>
-            <Button
-                variant="danger"
-                className="m-3 mb-2"
-                onClick={() => setIsCommenting(isCommenting => !isCommenting)}
-            >
-                Add Commnet
-            </Button>
-
-            {isCommenting ? (
+            <Link to={`/posts/comment/${post.id}`}>
+                <Button
+                    variant="danger"
+                    className="m-3 mb-2"
+                    // onClick={() =>
+                    //     setIsCommenting(isCommenting => !isCommenting)
+                    // }
+                >
+                    Add Commnet
+                </Button>
+            </Link>
+            {/* {isCommenting ? (
                 <>
-                    <CommentsForm
+                    <Button variant="outline-danger">Comment</Button> <CommentsForm
                         handleSubmit={handleSubmit}
                         content={content}
                         setContent={setContent}
-                    />
+                    /> 
                 </>
-            ) : null}
+            ) : null} */}
 
             <h5 className="m-3">{post.comments?.length} Comments:</h5>
             {post?.comments?.map(comment => (

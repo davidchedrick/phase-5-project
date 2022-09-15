@@ -24,7 +24,6 @@ function Login() {
     };
 
     const logIn = formData => {
-        console.log("formData: ", formData);
         if (canLogIn) {
             try {
                 setAddRequestStatus("pending");

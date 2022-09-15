@@ -30,7 +30,6 @@ function Signup({ setCurrentUser }) {
     };
 
     const signUp = formData => {
-        console.log("formData: ", formData);
         if (canLogIn) {
             try {
                 setAddRequestStatus("pending");
