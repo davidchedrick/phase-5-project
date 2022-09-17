@@ -33,7 +33,7 @@ function Header({ handleLogout, currentUser }) {
             </BtnDiv>
 
             <h1>BodhiSpot</h1>
-            <Link to="api/post">
+            <Link to="">
                 <BtnDiv className="btn btn-dark ">
                     <Button className="btn-sm" variant="outline-danger">
                         <svg
@@ -51,7 +51,7 @@ function Header({ handleLogout, currentUser }) {
                 </BtnDiv>
             </Link>
 
-            <Link to="api/post">
+            <Link to="/api/post">
                 <BtnDiv className="btn btn-dark ">
                     <Button className="btn-sm" variant="outline-danger">
                         <svg
@@ -88,7 +88,7 @@ function Header({ handleLogout, currentUser }) {
                 </BtnDiv>
             </Link>
 
-            <Link to="">
+            <Link to="/profiles/:id">
                 <BtnDiv className="btn btn-dark">
                     <Button className="btn-sm" variant="outline-danger">
                         <svg

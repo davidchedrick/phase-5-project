@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   
   namespace :api do
     resources :posts
+    resources :chats
+    resources :chat_replies
     resources :profiles, only: [:show, :update]
     resources :comments, only: [:create]
   

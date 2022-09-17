@@ -85,7 +85,7 @@ const CommentsForm = ({ currentUser, post, id }) => {
                         >
                             Submit
                         </Button>
-                        <Link to={`/posts/${id}`}>
+                        <Link to={`/api/posts/${id}`}>
                             <Button className="btn btn-dark m-1">Cancel</Button>
                         </Link>
                     </div>

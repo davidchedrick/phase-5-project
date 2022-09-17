@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_14_002016) do
+ActiveRecord::Schema.define(version: 2022_09_17_002233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "chat_replies", force: :cascade do |t|
+    t.string "message"
+    t.bigint "chat_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["chat_id"], name: "index_chat_replies_on_chat_id"
+    t.index ["user_id"], name: "index_chat_replies_on_user_id"
+  end
+
+  create_table "chats", force: :cascade do |t|
+    t.string "topic"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_chats_on_user_id"
+  end
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
@@ -52,6 +70,9 @@ ActiveRecord::Schema.define(version: 2022_09_14_002016) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "chat_replies", "chats"
+  add_foreign_key "chat_replies", "users"
+  add_foreign_key "chats", "users"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "posts", "users"

@@ -11,6 +11,7 @@ import { endSession } from "./features/start/currentUserSlice";
 // import CommentsForm from "./features/posts/CommentsForm";
 import EditPost from "./features/posts/EditPost";
 import CommentPost from "./features/posts/CommentPost";
+import Profile from "./features/profile/Profile";
 
 function AuthenticatedApp({ currentUser }) {
     console.log("currentUser: AUTHAPP", currentUser);
@@ -32,6 +33,9 @@ function AuthenticatedApp({ currentUser }) {
 
     return (
         <Switch>
+            <Route exact path="/profiles/:id">
+                <Profile currentUser={currentUser} />
+            </Route>
             <Route path="/posts/edit/:id">
                 <EditPost currentUser={currentUser} />
             </Route>
