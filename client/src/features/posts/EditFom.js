@@ -36,7 +36,7 @@ function EditForm({ post, id }) {
                 console.error("Failed to save the post", err);
             } finally {
                 setRequestStatus("idle");
-                history.push(`/posts/${id}`);
+                history.push(`/api/posts/${id}`);
             }
         }
     };
@@ -68,7 +68,7 @@ function EditForm({ post, id }) {
                 Submit
             </Button>
 
-            <Link to={`/posts/${post.id}`}>
+            <Link to={`/api/posts/${post.id}`}>
                 <Button className="btn btn-dark m-1">Cancel</Button>
             </Link>
         </Form>

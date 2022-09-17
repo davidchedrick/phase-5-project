@@ -12,7 +12,7 @@ const Posts = ({ post }) => {
             <Card.Body>
                 <Card.Title>{post.title}</Card.Title>
                 <Card.Text>{post.content?.substring(0, 180)}</Card.Text>
-                <Link to={`/posts/${post.id}`}>
+                <Link to={`/api/posts/${post.id}`}>
                     <Button variant="outline-danger">Read</Button>
                 </Link>
             </Card.Body>

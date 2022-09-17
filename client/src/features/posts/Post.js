@@ -40,7 +40,7 @@ function Post({ currentUser }) {
             </Button>
             {isEditing ? (
                 <div className="m-3 pt-5 d-grid gap-2">
-                    <Link to={`/posts/edit/${post.id}`}>
+                    <Link to={`/api/posts/edit/${post.id}`}>
                         <Button variant="warning" size="lg">
                             Edit
                         </Button>

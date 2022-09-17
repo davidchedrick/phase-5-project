@@ -11,7 +11,7 @@ const CommentsForm = ({ currentUser, post, id }) => {
     const [addRequestStatus, setAddRequestStatus] = useState("idle");
     const dispatch = useDispatch();
     const history = useHistory();
-    const [fetchRequest, setFetchRequest] = useState(false);
+    // const [fetchRequest, setFetchRequest] = useState(false);
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -22,47 +22,47 @@ const CommentsForm = ({ currentUser, post, id }) => {
         });
     };
 
-    function addComment(formData) {
-        return fetch("/api/comments", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify(formData),
-        })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    return res.json().then(errors => Promise.reject(errors));
-                }
-            })
-            .then(newComment => {
-                console.log("newComment: ", newComment);
-                // setIsCommenting(isCommenting => !isCommenting);
-                setContent("");
-                setFetchRequest(fetchRequest => !fetchRequest);
-            });
-    }
+    // function addComment(formData) {
+    //     return fetch("/api/comments", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         credentials: "include",
+    //         body: JSON.stringify(formData),
+    //     })
+    //         .then(res => {
+    //             if (res.ok) {
+    //                 return res.json();
+    //             } else {
+    //                 return res.json().then(errors => Promise.reject(errors));
+    //             }
+    //         })
+    //         .then(newComment => {
+    //             console.log("newComment: ", newComment);
+    //             // setIsCommenting(isCommenting => !isCommenting);
+    //             setContent("");
+    //             setFetchRequest(fetchRequest => !fetchRequest);
+    //         });
+    // }
 
     const canSave = [content].every(Boolean) && addRequestStatus === "idle";
 
-    // function addComment(formData) {
-    //     if (canSave) {
-    //         try {
-    //             setAddRequestStatus("pending");
-    //             dispatch(addNewComment(formData)).unwrap();
+    function addComment(formData) {
+        if (canSave) {
+            try {
+                setAddRequestStatus("pending");
+                dispatch(addNewComment(formData)).unwrap();
 
-    //             setContent("");
-    //         } catch (err) {
-    //             console.error("Failed to save the comment", err);
-    //         } finally {
-    //             setAddRequestStatus("idle");
-    //             history.push(`/posts/comment/${id}`);
-    //         }
-    //     }
-    // }
+                setContent("");
+            } catch (err) {
+                console.error("Failed to save the comment", err);
+            } finally {
+                setAddRequestStatus("idle");
+                history.push(`/api/posts/${id}`);
+            }
+        }
+    }
 
     return (
         <div>

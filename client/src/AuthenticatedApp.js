@@ -36,7 +36,7 @@ function AuthenticatedApp({ currentUser }) {
             <Route exact path="/profiles/:id">
                 <Profile currentUser={currentUser} />
             </Route>
-            <Route path="/posts/edit/:id">
+            <Route path="/api/posts/edit/:id">
                 <EditPost currentUser={currentUser} />
             </Route>
             <Route path="/posts/comment/:id">
@@ -45,7 +45,7 @@ function AuthenticatedApp({ currentUser }) {
             <Route path="/api/post">
                 <AddPost currentUser={currentUser} />
             </Route>
-            <Route path="/posts/:id">
+            <Route path="/api/posts/:id">
                 <Post currentUser={currentUser} />
             </Route>
             <Route exact path="/">
