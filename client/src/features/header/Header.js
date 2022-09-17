@@ -88,7 +88,7 @@ function Header({ handleLogout, currentUser }) {
                 </BtnDiv>
             </Link>
 
-            <Link to="/profiles/:id">
+            <Link to={`/api/profiles/${currentUser.id}`}>
                 <BtnDiv className="btn btn-dark">
                     <Button className="btn-sm" variant="outline-danger">
                         <svg

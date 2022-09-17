@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { Button, Container, Form } from "react-bootstrap";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 // import { Link } from "react-router-dom";
 // import { Button, Container, Form } from "react-bootstrap";
 // import Loading from "../Loading";
@@ -8,7 +10,7 @@ import { useParams } from "react-router";
 // import defaultPic from "../img/default-user-pic.png";
 
 const Profile = ({ currentUser }) => {
-    const [isCurrentUser, setIsCurrentUser] = useState(false);
+    // const [isCurrentUser, setIsCurrentUser] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     // const [name, setName] = useState(currentUser.profile.name);
     // const [website, setWebsite] = useState(currentUser.profile.website);
@@ -81,11 +83,11 @@ const Profile = ({ currentUser }) => {
     return (
         <>
             <h1>cat</h1>
-            {/*  {isCurrentUser ? (
+            {currentUser.id === Number(id) ? (
                 <>
-                     <Container className="d-flex flex-row mb-3 justify-content-between">
+                    <Container className="d-flex flex-row mb-3 justify-content-between">
                         <div className="d-flex flex-column mb-3">
-                            <h1>Name: {profile.name}</h1>
+                            {/* <h1>Name: {profile.name}</h1> */}
                             <Link
                                 to={{ pathname: "https://example.s" }}
                                 target="_blank"
@@ -93,15 +95,17 @@ const Profile = ({ currentUser }) => {
                             <h1>
                                 Website:{" "}
                                 <Link
-                                    to={{
-                                        pathname: `https://${profile.website}`,
-                                    }}
+                                    to={
+                                        {
+                                            // pathname: `https://${profile.website}`,
+                                        }
+                                    }
                                     target="_blank"
                                 >
-                                    {profile.website}
+                                    {/* {profile.website} */}
                                 </Link>
                             </h1>
-                            <h1>Bio: {profile.bio}</h1>
+                            {/* <h1>Bio: {profile.bio}</h1> */}
                         </div>
                         <div className="d-flex flex-column mb-3 ">
                             <span
@@ -114,47 +118,47 @@ const Profile = ({ currentUser }) => {
                                 ✏️
                             </span>
 
-                            <img
+                            {/* <img
                                 src={profile.picture || defaultPic}
                                 alt={`of ${profile.name}`}
                                 className="avatar"
-                            ></img>
+                            ></img> */}
                         </div>
                     </Container>
-                    <UserPosts profile={profile} currentUser={currentUser} />
+                    {/* <UserPosts profile={profile} currentUser={currentUser} /> */}
                 </>
             ) : (
                 <>
                     <Container className="d-flex flex-row mb-3 justify-content-between">
                         <div className="d-flex flex-column mb-3">
-                            <h1>Name: {profile.name}</h1>
+                            {/* <h1>Name: {profile.name}</h1> */}
                             <Link
                                 to={{ pathname: "https://example.s" }}
                                 target="_blank"
                             />
                             <h1>
                                 Website:{" "}
-                                <Link
+                                {/* <Link
                                     to={{
                                         pathname: `https://${profile.website}`,
                                     }}
                                     target="_blank"
                                 >
                                     {profile.website}
-                                </Link>
+                                </Link> */}
                             </h1>
-                            <h1>Bio: {profile.bio}</h1>
+                            {/* <h1>Bio: {profile.bio}</h1> */}
                         </div>
                         <div className="d-flex flex-column mb-3 ">
-                            <img
+                            {/* <img
                                 src={profile.picture || defaultPic}
                                 alt={`of ${profile.name}`}
                                 className="avatar mt-4"
-                            ></img>
+                            ></img> */}
                         </div>
                     </Container>
 
-                    <UserProfile profile={profile} currentUser={currentUser} />
+                    {/* <UserProfile profile={profile} currentUser={currentUser} /> */}
                 </>
             )}
 
@@ -169,8 +173,8 @@ const Profile = ({ currentUser }) => {
                                     <Form.Control
                                         placeholder="name"
                                         type="text"
-                                        value={name}
-                                        onChange={e => setName(e.target.value)}
+                                        // value={name}
+                                        // onChange={e => setName(e.target.value)}
                                         name="name"
                                     />
                                 </Form.Group>
@@ -182,10 +186,10 @@ const Profile = ({ currentUser }) => {
                                     <Form.Control
                                         placeholder="www.example.com"
                                         type="text"
-                                        value={website}
-                                        onChange={e =>
-                                            setWebsite(e.target.value)
-                                        }
+                                        // value={website}
+                                        // onChange={e =>
+                                        // setWebsite(e.target.value)
+                                        // }
                                         name="website"
                                     />
                                 </Form.Group>
@@ -197,10 +201,10 @@ const Profile = ({ currentUser }) => {
                                     <Form.Control
                                         placeholder="picture url"
                                         type="text"
-                                        value={picture}
-                                        onChange={e =>
-                                            setPicture(e.target.value)
-                                        }
+                                        // value={picture}
+                                        // onChange={e =>
+                                        //     setPicture(e.target.value)
+                                        // }
                                         name="picture"
                                     />
                                 </Form.Group>
@@ -210,8 +214,8 @@ const Profile = ({ currentUser }) => {
                                         placeholder="Write Bio Here...."
                                         as="textarea"
                                         type="text"
-                                        value={bio}
-                                        onChange={e => setBio(e.target.value)}
+                                        // value={bio}
+                                        // onChange={e => setBio(e.target.value)}
                                         name="bio"
                                     />
                                 </Form.Group>
@@ -230,7 +234,7 @@ const Profile = ({ currentUser }) => {
                         </div>
                     </div>
                 </>
-            ) : null} */}
+            ) : null}
         </>
     );
 };

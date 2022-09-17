@@ -51,7 +51,7 @@ function Comments({ post, currentUser }) {
 
     return (
         <>
-            <Link to={`/posts/comment/${post.id}`}>
+            <Link to={`/api/posts/comments/${post.id}`}>
                 <Button
                     variant="danger"
                     className="m-3 mb-2"

@@ -33,13 +33,13 @@ function AuthenticatedApp({ currentUser }) {
 
     return (
         <Switch>
-            <Route exact path="/profiles/:id">
+            <Route exact path="/api/profiles/:id">
                 <Profile currentUser={currentUser} />
             </Route>
             <Route path="/api/posts/edit/:id">
                 <EditPost currentUser={currentUser} />
             </Route>
-            <Route path="/posts/comment/:id">
+            <Route path="/api/posts/comments/:id">
                 <CommentPost currentUser={currentUser} />
             </Route>
             <Route path="/api/post">
