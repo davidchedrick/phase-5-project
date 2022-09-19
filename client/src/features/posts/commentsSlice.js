@@ -1,6 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import { useDispatch } from "react-redux";
-// import { fetchPosts } from "./postsSlice";
 
 const initialState = {
     comments: [],

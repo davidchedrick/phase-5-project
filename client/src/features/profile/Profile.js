@@ -1,93 +1,94 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-// import { Link } from "react-router-dom";
-// import { Button, Container, Form } from "react-bootstrap";
-// import Loading from "../Loading";
+import Loading from "../Loading";
 // import UserPosts from "./UserPost";
 // import UserProfile from "./UserProfile";
-// import defaultPic from "../img/default-user-pic.png";
+import defaultPic from "./images/default-user-pic.png";
 
 const Profile = ({ currentUser }) => {
-    // const [isCurrentUser, setIsCurrentUser] = useState(false);
+    const [isCurrentUser, setIsCurrentUser] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
-    // const [name, setName] = useState(currentUser.profile.name);
-    // const [website, setWebsite] = useState(currentUser.profile.website);
-    // const [bio, setBio] = useState(currentUser.profile.bio);
-    // const [picture, setPicture] = useState(currentUser.profile.picture);
-    // const [fetchRequest, setFetchRequest] = useState(false);
+    const [name, setName] = useState(currentUser.profile.name);
+    const [website, setWebsite] = useState(currentUser.profile.website);
+    const [bio, setBio] = useState(currentUser.profile.bio);
+    const [picture, setPicture] = useState(currentUser.profile.picture);
+    const [fetchRequest, setFetchRequest] = useState(false);
     const { id } = useParams();
 
     const handleSubmit = e => {
         e.preventDefault();
-        // editPost({
-        //     name,
-        //     website,
-        //     bio,
-        //     picture,
-        // });
+        editPost({
+            name,
+            website,
+            bio,
+            picture,
+        });
     };
 
-    // const [{ profile, error, status }, setState] = useState({
-    //     profile: null,
-    //     error: null,
-    //     status: "pending",
-    // });
+    const [{ profile, error, status }, setState] = useState({
+        profile: null,
+        error: null,
+        status: "pending",
+    });
+    console.log("profile: ", profile);
 
-    // useEffect(() => {
-    //     fetch(`/api/profiles/${id}`).then(r => {
-    //         if (r.ok) {
-    //             r.json().then(profile => {
-    //                 // setState({ profile, error: null, status: "resolved" });
-    //                 // currentUser.profile.id === profile.id
-    //                 //     ? setIsCurrentUser(true)
-    //                 //     : setIsCurrentUser(false);
-    //             });
-    //         } else {
-    //             r.json().then(message =>
-    //                 setState({
-    //                     blog: null,
-    //                     error: message.error,
-    //                     status: "rejected",
-    //                 })
-    //             );
-    //         }
-    //     });
-    // }, [id, currentUser, fetchRequest]);
+    useEffect(() => {
+        fetch(`/api/profiles/${id}`).then(r => {
+            if (r.ok) {
+                r.json().then(profile => {
+                    console.log("profile: FETCH ", profile);
+                    setState({ profile, error: null, status: "resolved" });
+                    currentUser.profile.id === profile.id
+                        ? setIsCurrentUser(true)
+                        : setIsCurrentUser(false);
+                });
+            } else {
+                r.json().then(message => {
+                    setState({
+                        blog: null,
+                        error: message.error,
+                        status: "rejected",
+                    });
+                });
+            }
+        });
+    }, [id, currentUser, fetchRequest]);
 
-    // function editPost(formData) {
-    //     // return fetch(`/api/profiles/${id}`, {
-    //     //     method: "PATCH",
-    //     //     headers: {
-    //     //         "Content-Type": "application/json",
-    //     //     },
-    //     //     credentials: "include",
-    //     //     body: JSON.stringify(formData),
-    //     // })
-    //     //     .then(res => {
-    //     //         if (res.ok) {
-    //     //             console.log("res: ", res);
-    //     //         } else {
-    //     //             return res.json().then(errors => Promise.reject(errors));
-    //     //         }
-    //     //     })
-    //     //     .then(profile => {
-    //     //         setFetchRequest(fetchRequest => !fetchRequest);
-    //     //         setIsEditing(isEditing => !isEditing);
-    //     //     });
-    // }
+    function editPost(formData) {
+        return fetch(`/api/profiles/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify(formData),
+        })
+            .then(res => {
+                if (res.ok) {
+                    console.log("res: ", res);
+                } else {
+                    return res.json().then(errors => Promise.reject(errors));
+                }
+            })
+            .then(profile => {
+                setFetchRequest(fetchRequest => !fetchRequest);
+                setIsEditing(isEditing => !isEditing);
+            });
+    }
 
-    // if (status === "pending" || error) return <Loading />;
+    if (status === "pending" || error) return <Loading />;
 
     return (
         <>
             <h1>cat</h1>
+
             {currentUser.id === Number(id) ? (
                 <>
                     <Container className="d-flex flex-row mb-3 justify-content-between">
                         <div className="d-flex flex-column mb-3">
-                            {/* <h1>Name: {profile.name}</h1> */}
+                            <h1>Name: {profile.name}</h1>
                             <Link
                                 to={{ pathname: "https://example.s" }}
                                 target="_blank"
@@ -95,17 +96,15 @@ const Profile = ({ currentUser }) => {
                             <h1>
                                 Website:{" "}
                                 <Link
-                                    to={
-                                        {
-                                            // pathname: `https://${profile.website}`,
-                                        }
-                                    }
+                                    to={{
+                                        pathname: `https://${profile.website}`,
+                                    }}
                                     target="_blank"
                                 >
-                                    {/* {profile.website} */}
+                                    {profile.website}
                                 </Link>
                             </h1>
-                            {/* <h1>Bio: {profile.bio}</h1> */}
+                            <h1>Bio: {profile.bio}</h1>
                         </div>
                         <div className="d-flex flex-column mb-3 ">
                             <span
@@ -118,11 +117,11 @@ const Profile = ({ currentUser }) => {
                                 ✏️
                             </span>
 
-                            {/* <img
-                                src={profile.picture || defaultPic}
+                            <img
+                                src={defaultPic}
                                 alt={`of ${profile.name}`}
                                 className="avatar"
-                            ></img> */}
+                            ></img>
                         </div>
                     </Container>
                     {/* <UserPosts profile={profile} currentUser={currentUser} /> */}
@@ -131,30 +130,34 @@ const Profile = ({ currentUser }) => {
                 <>
                     <Container className="d-flex flex-row mb-3 justify-content-between">
                         <div className="d-flex flex-column mb-3">
-                            {/* <h1>Name: {profile.name}</h1> */}
+                            <h1>Name: {profile.name}</h1>
                             <Link
                                 to={{ pathname: "https://example.s" }}
                                 target="_blank"
                             />
                             <h1>
                                 Website:{" "}
-                                {/* <Link
+                                <Link
                                     to={{
                                         pathname: `https://${profile.website}`,
                                     }}
                                     target="_blank"
                                 >
                                     {profile.website}
-                                </Link> */}
+                                </Link>
                             </h1>
-                            {/* <h1>Bio: {profile.bio}</h1> */}
+                            <h1>Bio: {profile.bio}</h1>
                         </div>
                         <div className="d-flex flex-column mb-3 ">
-                            {/* <img
-                                src={profile.picture || defaultPic}
+                            <img
+                                src={
+                                    profile.picture || {
+                                        defaultPic,
+                                    }
+                                }
                                 alt={`of ${profile.name}`}
                                 className="avatar mt-4"
-                            ></img> */}
+                            ></img>
                         </div>
                     </Container>
 
@@ -173,8 +176,8 @@ const Profile = ({ currentUser }) => {
                                     <Form.Control
                                         placeholder="name"
                                         type="text"
-                                        // value={name}
-                                        // onChange={e => setName(e.target.value)}
+                                        value={name}
+                                        onChange={e => setName(e.target.value)}
                                         name="name"
                                     />
                                 </Form.Group>
@@ -186,10 +189,10 @@ const Profile = ({ currentUser }) => {
                                     <Form.Control
                                         placeholder="www.example.com"
                                         type="text"
-                                        // value={website}
-                                        // onChange={e =>
-                                        // setWebsite(e.target.value)
-                                        // }
+                                        value={website}
+                                        onChange={e =>
+                                            setWebsite(e.target.value)
+                                        }
                                         name="website"
                                     />
                                 </Form.Group>
@@ -201,10 +204,10 @@ const Profile = ({ currentUser }) => {
                                     <Form.Control
                                         placeholder="picture url"
                                         type="text"
-                                        // value={picture}
-                                        // onChange={e =>
-                                        //     setPicture(e.target.value)
-                                        // }
+                                        value={picture}
+                                        onChange={e =>
+                                            setPicture(e.target.value)
+                                        }
                                         name="picture"
                                     />
                                 </Form.Group>
@@ -214,8 +217,8 @@ const Profile = ({ currentUser }) => {
                                         placeholder="Write Bio Here...."
                                         as="textarea"
                                         type="text"
-                                        // value={bio}
-                                        // onChange={e => setBio(e.target.value)}
+                                        value={bio}
+                                        onChange={e => setBio(e.target.value)}
                                         name="bio"
                                     />
                                 </Form.Group>
