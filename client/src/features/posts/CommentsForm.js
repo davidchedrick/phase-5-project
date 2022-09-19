@@ -78,11 +78,7 @@ const CommentsForm = ({ currentUser, post, id }) => {
                         />
                     </Form.Group>
                     <div>
-                        <Button
-                            variant="dark"
-                            type="submit"
-                            className="m-3 mt-0"
-                        >
+                        <Button variant="dark" type="submit" className="m-1">
                             Submit
                         </Button>
                         <Link to={`/api/posts/${id}`}>

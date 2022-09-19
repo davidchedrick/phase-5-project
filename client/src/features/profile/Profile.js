@@ -10,7 +10,8 @@ import defaultPic from "./images/default-user-pic.png";
 import { selectProfileById } from "./profileSlice";
 
 const Profile = ({ currentUser }) => {
-    const [isCurrentUser, setIsCurrentUser] = useState(false);
+    console.log("currentUser: ", currentUser);
+    // const [isCurrentUser, setIsCurrentUser] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState(currentUser.profile.name);
     const [website, setWebsite] = useState(currentUser.profile.website);
@@ -18,9 +19,14 @@ const Profile = ({ currentUser }) => {
     const [picture, setPicture] = useState(currentUser.profile.picture);
     const [fetchRequest, setFetchRequest] = useState(false);
     const { id } = useParams();
-    const state = useSelector(state => selectProfileById(state, Number(id)));
+    console.log("id: ", id);
+    const state = useSelector(state =>
+        selectProfileById(state.profiles, Number(id))
+    );
     console.log("state: ", state);
-    const profile = state.profile;
+    // const profile = state.profile;
+    // console.log("profile: ", profile);
+
     const handleSubmit = e => {
         e.preventDefault();
         editPost({
@@ -30,13 +36,6 @@ const Profile = ({ currentUser }) => {
             picture,
         });
     };
-
-    // const [{ profile, error, status }, setState] = useState({
-    //     profile: null,
-    //     error: null,
-    //     status: "pending",
-    // });
-    console.log("profile: ", profile);
 
     // useEffect(() => {
     //     fetch(`/api/profiles/${id}`).then(r => {
@@ -82,33 +81,32 @@ const Profile = ({ currentUser }) => {
             });
     }
 
-    if (profile.status === "pending" || profile.error) return <Loading />;
+    // if (profile.status === "pending" || profile.error) return <Loading />;
 
     return (
         <>
-            <h1>cat</h1>
-
-            {currentUser.id === Number(id) ? (
+            {/* currentUser.id === Number(id) */}
+            {currentUser.id ? (
                 <>
                     <Container className="d-flex flex-row mb-3 justify-content-between">
                         <div className="d-flex flex-column mb-3">
-                            <h1>Name: {profile.name}</h1>
+                            {/* <h1>Name: {profile.name}</h1> */}
                             <Link
                                 to={{ pathname: "https://example.s" }}
                                 target="_blank"
                             />
                             <h1>
                                 Website:{" "}
-                                <Link
+                                {/* <Link
                                     to={{
                                         pathname: `https://${profile.website}`,
                                     }}
                                     target="_blank"
                                 >
                                     {profile.website}
-                                </Link>
+                                </Link> */}
                             </h1>
-                            <h1>Bio: {profile.bio}</h1>
+                            {/* <h1>Bio: {profile.bio}</h1> */}
                         </div>
                         <div className="d-flex flex-column mb-3 ">
                             <span
@@ -121,11 +119,11 @@ const Profile = ({ currentUser }) => {
                                 ✏️
                             </span>
 
-                            <img
+                            {/* <img
                                 src={defaultPic}
                                 alt={`of ${profile.name}`}
                                 className="avatar"
-                            ></img>
+                            ></img> */}
                         </div>
                     </Container>
                     {/* <UserPosts profile={profile} currentUser={currentUser} /> */}
@@ -134,26 +132,26 @@ const Profile = ({ currentUser }) => {
                 <>
                     <Container className="d-flex flex-row mb-3 justify-content-between">
                         <div className="d-flex flex-column mb-3">
-                            <h1>Name: {profile.name}</h1>
-                            <Link
+                            {/* <h1>Name: {profile.name}</h1> */}
+                            {/* <Link
                                 to={{ pathname: "https://example.s" }}
                                 target="_blank"
-                            />
+                            /> */}
                             <h1>
                                 Website:{" "}
-                                <Link
+                                {/* <Link
                                     to={{
                                         pathname: `https://${profile.website}`,
                                     }}
                                     target="_blank"
                                 >
                                     {profile.website}
-                                </Link>
+                                </Link> */}
                             </h1>
-                            <h1>Bio: {profile.bio}</h1>
+                            {/* <h1>Bio: {profile.bio}</h1> */}
                         </div>
                         <div className="d-flex flex-column mb-3 ">
-                            <img
+                            {/* <img
                                 src={
                                     profile.picture || {
                                         defaultPic,
@@ -161,7 +159,7 @@ const Profile = ({ currentUser }) => {
                                 }
                                 alt={`of ${profile.name}`}
                                 className="avatar mt-4"
-                            ></img>
+                            ></img> */}
                         </div>
                     </Container>
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
@@ -12,17 +12,23 @@ function Post({ currentUser }) {
     const { id } = useParams();
 
     const post = useSelector(state => selectPostById(state, Number(id)));
-    console.log("post: ", post);
+    console.log(currentUser.id === post.user_id);
+
+    useLayoutEffect(() => {
+        window.scrollTo(0, 0);
+    });
+
     if (!post) {
         return <Loading />;
     }
+
     return (
         <>
             {currentUser.id === post.user_id ? (
                 <Button
                     variant="dark"
                     size="sm"
-                    className="m-2 position-absolute top-0 start-0"
+                    className="mt-3 "
                     onClick={() => {
                         setIsEditing(isEditing => !isEditing);
                     }}
@@ -39,18 +45,16 @@ function Post({ currentUser }) {
                 X
             </Button>
             {isEditing ? (
-                <div className="m-3 pt-5 d-grid gap-2">
+                <div>
                     <Link to={`/api/posts/edit/${post.id}`}>
-                        <Button variant="warning" size="lg">
-                            Edit
-                        </Button>
+                        <Button variant="warning">Edit</Button>
                     </Link>
                     <DeletePost />
                 </div>
             ) : null}
 
             <>
-                <article className="post m-4">
+                <article className="post m-3">
                     <h1 className="b-title">{post.title}</h1>
                     <small>
                         <p>{post.date}</p>

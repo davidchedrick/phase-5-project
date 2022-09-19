@@ -6,13 +6,21 @@ const Posts = ({ post }) => {
         <Card className="text-center m-3">
             <Card.Header className="">
                 <p>
-                    <em>Written by {post.author}</em>
+                    <em>
+                        Written by{" "}
+                        <Link
+                            to={`api/profiles/${post.profile.id}`}
+                            className="m-1 link-color"
+                        >
+                            {post.author}
+                        </Link>
+                    </em>
                 </p>
             </Card.Header>
             <Card.Body>
                 <Card.Title>{post.title}</Card.Title>
                 <Card.Text>{post.content?.substring(0, 180)}</Card.Text>
-                <Link to={`/api/posts/${post.id}`}>
+                <Link to={`api/posts/${post.id}`}>
                     <Button variant="outline-danger">Read</Button>
                 </Link>
             </Card.Body>

@@ -32,21 +32,21 @@ export const fetchProfiles = createAsyncThunk("posts/fetchPosts", async () => {
 //         }
 //     });
 // }, [id, currentUser, fetchRequest]);
-const commentsSlice = createSlice({
+const profilesSlice = createSlice({
     name: "profiles",
     initialState,
     reducers: {},
     extraReducers: {
         [fetchProfiles.fulfilled](state, action) {
-            console.log("action: ", action);
             state.status = "succeeded";
             state.profiles.push(action.payload);
         },
     },
 });
 
-export const selectProfileById = (state, postId) => {
-    return state.posts.posts.find(post => post.id === postId);
+export const selectProfileById = (state, profileId) => {
+    console.log("profileId: ", profileId);
+    return state.profiles.profiles.find(profile => profile.id === profileId);
 };
 
-export default commentsSlice.reducer;
+export default profilesSlice.reducer;

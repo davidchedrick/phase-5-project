@@ -21,11 +21,7 @@ const DeletePost = () => {
 
     return (
         <>
-            <Button
-                variant="danger"
-                size="lg"
-                onClick={() => selectDeletePost(id)}
-            >
+            <Button variant="danger" onClick={() => selectDeletePost(id)}>
                 Delete
             </Button>
         </>
