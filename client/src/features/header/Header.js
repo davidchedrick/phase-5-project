@@ -32,7 +32,10 @@ function Header({ handleLogout, currentUser }) {
                 <p>Log Out</p>
             </BtnDiv>
 
-            <h1>BodhiSpot</h1>
+            <Link to="/" style={{ textDecoration: "none" }}>
+                <TitleName>BodhiSpot</TitleName>
+            </Link>
+
             <Link to="">
                 <BtnDiv className="btn btn-dark ">
                     <Button className="btn-sm" variant="outline-danger">
@@ -126,6 +129,12 @@ const BtnDiv = styled.div`
     align-items: center;
     height: 65px;
     font-size: small;
+    box-shadow: 0px 0px 15px pink;
 `;
 
+const TitleName = styled.h1`
+    color: rgba(245, 10, 200, 1);
+    -webkit-text-stroke: 1px pink;
+    text-shadow: 0px 4px 4px #282828;
+`;
 export default Header;

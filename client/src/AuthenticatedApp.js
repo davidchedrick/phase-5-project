@@ -12,6 +12,7 @@ import { endSession } from "./features/start/currentUserSlice";
 import EditPost from "./features/posts/EditPost";
 import CommentPost from "./features/posts/CommentPost";
 import Profile from "./features/profile/Profile";
+import Header from "./features/header/Header";
 
 function AuthenticatedApp({ currentUser }) {
     console.log("currentUser: AUTHAPP", currentUser);
@@ -32,29 +33,32 @@ function AuthenticatedApp({ currentUser }) {
     };
 
     return (
-        <Switch>
-            <Route exact path="/api/profiles/:id">
-                <Profile currentUser={currentUser} />
-            </Route>
-            <Route path="/api/posts/edit/:id">
-                <EditPost currentUser={currentUser} />
-            </Route>
-            <Route path="/api/posts/comments/:id">
-                <CommentPost currentUser={currentUser} />
-            </Route>
-            <Route path="/api/post">
-                <AddPost currentUser={currentUser} />
-            </Route>
-            <Route path="/api/posts/:id">
-                <Post currentUser={currentUser} />
-            </Route>
-            <Route exact path="/">
-                <HomePage
-                    handleLogout={handleLogout}
-                    currentUser={currentUser}
-                />
-            </Route>
-        </Switch>
+        <>
+            <Header handleLogout={handleLogout} currentUser={currentUser} />
+            <Switch>
+                <Route exact path="/api/profiles/:id">
+                    <Profile currentUser={currentUser} />
+                </Route>
+                <Route path="/api/posts/edit/:id">
+                    <EditPost currentUser={currentUser} />
+                </Route>
+                <Route path="/api/posts/comments/:id">
+                    <CommentPost currentUser={currentUser} />
+                </Route>
+                <Route path="/api/post">
+                    <AddPost currentUser={currentUser} />
+                </Route>
+                <Route path="/api/posts/:id">
+                    <Post currentUser={currentUser} />
+                </Route>
+                <Route exact path="/">
+                    <HomePage
+                        handleLogout={handleLogout}
+                        currentUser={currentUser}
+                    />
+                </Route>
+            </Switch>
+        </>
     );
 }
 

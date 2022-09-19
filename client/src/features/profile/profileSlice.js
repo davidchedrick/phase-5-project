@@ -37,19 +37,16 @@ const commentsSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: {
-        [addNewComment.fulfilled](state, action) {
+        [fetchProfiles.fulfilled](state, action) {
             console.log("action: ", action);
             state.status = "succeeded";
-            // state.comments.push(action.payload);
-            const id = action.payload.id;
-            const udpatedComments = state.comments.map(comment =>
-                comment.id === id ? action.payload : comment
-            );
-            state.posts = udpatedComments;
+            state.profiles.push(action.payload);
         },
     },
 });
 
-export const { commentsAdded, commentsRemoved } = commentsSlice.actions;
+export const selectProfileById = (state, postId) => {
+    return state.posts.posts.find(post => post.id === postId);
+};
 
 export default commentsSlice.reducer;

@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import Loading from "../Loading";
 // import UserPosts from "./UserPost";
 // import UserProfile from "./UserProfile";
 import defaultPic from "./images/default-user-pic.png";
+import { selectProfileById } from "./profileSlice";
 
 const Profile = ({ currentUser }) => {
     const [isCurrentUser, setIsCurrentUser] = useState(false);
@@ -16,7 +18,9 @@ const Profile = ({ currentUser }) => {
     const [picture, setPicture] = useState(currentUser.profile.picture);
     const [fetchRequest, setFetchRequest] = useState(false);
     const { id } = useParams();
-
+    const state = useSelector(state => selectProfileById(state, Number(id)));
+    console.log("state: ", state);
+    const profile = state.profile;
     const handleSubmit = e => {
         e.preventDefault();
         editPost({
@@ -27,34 +31,34 @@ const Profile = ({ currentUser }) => {
         });
     };
 
-    const [{ profile, error, status }, setState] = useState({
-        profile: null,
-        error: null,
-        status: "pending",
-    });
+    // const [{ profile, error, status }, setState] = useState({
+    //     profile: null,
+    //     error: null,
+    //     status: "pending",
+    // });
     console.log("profile: ", profile);
 
-    useEffect(() => {
-        fetch(`/api/profiles/${id}`).then(r => {
-            if (r.ok) {
-                r.json().then(profile => {
-                    console.log("profile: FETCH ", profile);
-                    setState({ profile, error: null, status: "resolved" });
-                    currentUser.profile.id === profile.id
-                        ? setIsCurrentUser(true)
-                        : setIsCurrentUser(false);
-                });
-            } else {
-                r.json().then(message => {
-                    setState({
-                        blog: null,
-                        error: message.error,
-                        status: "rejected",
-                    });
-                });
-            }
-        });
-    }, [id, currentUser, fetchRequest]);
+    // useEffect(() => {
+    //     fetch(`/api/profiles/${id}`).then(r => {
+    //         if (r.ok) {
+    //             r.json().then(profile => {
+    //                 console.log("profile: FETCH ", profile);
+    //                 setState({ profile, error: null, status: "resolved" });
+    //                 currentUser.profile.id === profile.id
+    //                     ? setIsCurrentUser(true)
+    //                     : setIsCurrentUser(false);
+    //             });
+    //         } else {
+    //             r.json().then(message => {
+    //                 setState({
+    //                     blog: null,
+    //                     error: message.error,
+    //                     status: "rejected",
+    //                 });
+    //             });
+    //         }
+    //     });
+    // }, [id, currentUser, fetchRequest]);
 
     function editPost(formData) {
         return fetch(`/api/profiles/${id}`, {
@@ -78,7 +82,7 @@ const Profile = ({ currentUser }) => {
             });
     }
 
-    if (status === "pending" || error) return <Loading />;
+    if (profile.status === "pending" || profile.error) return <Loading />;
 
     return (
         <>
