@@ -1,6 +1,13 @@
 class Api::ProfilesController < ApplicationController
 
+    def index
+      
+        profile = Profile.all
+        render json: profile
+    end
+    
     def show
+       
         profile = Profile.find(params[:id]) 
         render json: profile, status: :ok
     end

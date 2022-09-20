@@ -6,47 +6,32 @@ const initialState = {
     error: null,
 };
 
-export const fetchProfiles = createAsyncThunk("posts/fetchPosts", async () => {
-    const res = await fetch(`/api/profiles`);
-    const data = await res.json();
-    return data;
-});
+export const fetchProfiles = createAsyncThunk(
+    "profiles/fetchProfiles",
+    async selectedPost => {
+        const res = await fetch(`/api/profiles/${selectedPost}`);
+        const data = await res.json();
+        return data;
+    }
+);
 
-// useEffect(() => {
-//     fetch(`/api/profiles/${id}`).then(r => {
-//         if (r.ok) {
-//             r.json().then(profile => {
-//                 // setState({ profile, error: null, status: "resolved" });
-//                 // currentUser.profile.id === profile.id
-//                 //     ? setIsCurrentUser(true)
-//                 //     : setIsCurrentUser(false);
-//             });
-//         } else {
-//             r.json().then(message =>
-//                 setState({
-//                     blog: null,
-//                     error: message.error,
-//                     status: "rejected",
-//                 })
-//             );
-//         }
-//     });
-// }, [id, currentUser, fetchRequest]);
 const profilesSlice = createSlice({
     name: "profiles",
     initialState,
     reducers: {},
     extraReducers: {
+        [fetchProfiles.pending](state) {
+            state.status = "loading";
+            state.profiles = null;
+        },
         [fetchProfiles.fulfilled](state, action) {
             state.status = "succeeded";
-            state.profiles.push(action.payload);
+            state.profiles = action.payload;
         },
     },
 });
 
-export const selectProfileById = (state, profileId) => {
-    console.log("profileId: ", profileId);
-    return state.profiles.profiles.find(profile => profile.id === profileId);
-};
+export const selectProfileById = state => state.profiles.profiles;
+export const selectProfileStatus = state => state.profiles.status;
 
 export default profilesSlice.reducer;

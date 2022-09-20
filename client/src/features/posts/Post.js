@@ -12,7 +12,6 @@ function Post({ currentUser }) {
     const { id } = useParams();
 
     const post = useSelector(state => selectPostById(state, Number(id)));
-    console.log(currentUser.id === post.user_id);
 
     useLayoutEffect(() => {
         window.scrollTo(0, 0);

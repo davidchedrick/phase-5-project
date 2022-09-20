@@ -4,7 +4,8 @@ Rails.application.routes.draw do
     resources :posts
     resources :chats
     resources :chat_replies
-    resources :profiles, only: [:show, :update]
+    resources :profiles
+    # , only: [:index, :show, :update]
     resources :comments, only: [:create]
   
     get "/me", to: "users#show"
