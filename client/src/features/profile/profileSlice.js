@@ -31,7 +31,6 @@ const profilesSlice = createSlice({
     },
 });
 
-export const selectProfileById = state => state.profiles.profiles;
-export const selectProfileStatus = state => state.profiles.status;
+export const selectProfileById = state => state.profiles;
 
 export default profilesSlice.reducer;
