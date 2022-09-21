@@ -36,7 +36,7 @@ function AuthenticatedApp({ currentUser }) {
         <>
             <Header handleLogout={handleLogout} currentUser={currentUser} />
             <Switch>
-                <Route exact path="/api/profiles/:id">
+                <Route path="/api/profiles/:id">
                     <Profile currentUser={currentUser} />
                 </Route>
                 <Route path="/api/posts/edit/:id">

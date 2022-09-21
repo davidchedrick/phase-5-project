@@ -1,43 +1,47 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+import { updateProfile } from "./profileSlice";
 
 export const EditProfile = ({ currentUser, setIsEditing }) => {
-    console.log("currentUser: ", currentUser);
+    const history = useHistory();
+    const dispatch = useDispatch();
     const [name, setName] = useState(currentUser.profile.name);
-    const [website, setWebsite] = useState(currentUser.profile.website);
-    const [bio, setBio] = useState(currentUser.profile.bio);
-    const [picture, setPicture] = useState(currentUser.profile.picture);
+    const [website, setWebsite] = useState(currentUser.profile.website || "");
+    const [bio, setBio] = useState(currentUser.profile.bio || "");
+    const [picture, setPicture] = useState(currentUser.profile.picture || "");
+    const [requestStatus, setRequestStatus] = useState("idle");
+    const canSave = requestStatus === "idle";
 
     const handleSubmit = e => {
         e.preventDefault();
-        editPost({
+        editProfile({
             name,
             website,
             bio,
             picture,
+            id: currentUser.id,
         });
     };
 
-    function editPost(formData) {
-        return fetch(`/api/profiles/${currentUser.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify(formData),
-        })
-            .then(res => {
-                if (res.ok) {
-                    console.log("res: ", res);
-                } else {
-                    return res.json().then(errors => Promise.reject(errors));
-                }
-            })
-            .then(profile => {
+    const editProfile = formData => {
+        if (canSave) {
+            try {
+                setRequestStatus("pending");
+                dispatch(updateProfile(formData)).unwrap();
+                setWebsite("");
+                setBio("");
+                setPicture("");
+            } catch (err) {
+                console.error("Failed to save the post", err);
+            } finally {
+                setRequestStatus("idle");
                 setIsEditing(isEditing => !isEditing);
-            });
-    }
+                history.push(`/api/profiles/${currentUser.id}`);
+            }
+        }
+    };
 
     return (
         <>

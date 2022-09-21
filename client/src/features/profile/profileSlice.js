@@ -15,6 +15,27 @@ export const fetchProfiles = createAsyncThunk(
     }
 );
 
+export const updateProfile = createAsyncThunk(
+    "profiles/updateProfile",
+    async formData => {
+        try {
+            const res = await fetch(`/api/profiles/${formData.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify(formData),
+            });
+            if (res.ok) {
+                return formData;
+            }
+        } catch (err) {
+            return err.message;
+        }
+    }
+);
+
 const profilesSlice = createSlice({
     name: "profiles",
     initialState,
@@ -26,6 +47,16 @@ const profilesSlice = createSlice({
         },
         [fetchProfiles.fulfilled](state, action) {
             state.status = "succeeded";
+            state.profiles = action.payload;
+        },
+        [updateProfile.fulfilled](state, action) {
+            console.log("action: ", action);
+            state.status = "succeeded";
+            // const id = action.payload.id;
+            // console.log("id: ", id);
+            // const udpatedProfiles = state.profiles.map(profile =>
+            //     profile.id === id ? action.payload : profile
+            // );
             state.profiles = action.payload;
         },
     },
