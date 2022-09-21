@@ -12,7 +12,6 @@ export const fetchCurrentUser = createAsyncThunk(
         try {
             const res = await fetch("/api/me");
             const data = await res.json();
-            console.log("data: ", data);
             return data;
         } catch (error) {
             return error;
@@ -31,7 +30,6 @@ export const addNewSession = createAsyncThunk(
             body: JSON.stringify(formData),
         });
         const data = await res.json();
-        console.log("data log in: ", data);
         return data;
     }
 );
@@ -47,7 +45,6 @@ export const addNewUser = createAsyncThunk(
             body: JSON.stringify(formData),
         });
         const data = await res.json();
-        console.log("data sign up: ", data);
         return data;
     }
 );

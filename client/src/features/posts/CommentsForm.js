@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import Comment from "./Comment";
@@ -11,7 +11,8 @@ const CommentsForm = ({ currentUser, post, id }) => {
     const [addRequestStatus, setAddRequestStatus] = useState("idle");
     const dispatch = useDispatch();
     const history = useHistory();
-    // const [fetchRequest, setFetchRequest] = useState(false);
+    const newComment = useSelector(addNewComment);
+    console.log("newComment: ", newComment);
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -21,30 +22,6 @@ const CommentsForm = ({ currentUser, post, id }) => {
             user_id: currentUser.id,
         });
     };
-
-    // function addComment(formData) {
-    //     return fetch("/api/comments", {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         credentials: "include",
-    //         body: JSON.stringify(formData),
-    //     })
-    //         .then(res => {
-    //             if (res.ok) {
-    //                 return res.json();
-    //             } else {
-    //                 return res.json().then(errors => Promise.reject(errors));
-    //             }
-    //         })
-    //         .then(newComment => {
-    //             console.log("newComment: ", newComment);
-    //             // setIsCommenting(isCommenting => !isCommenting);
-    //             setContent("");
-    //             setFetchRequest(fetchRequest => !fetchRequest);
-    //         });
-    // }
 
     const canSave = [content].every(Boolean) && addRequestStatus === "idle";
 

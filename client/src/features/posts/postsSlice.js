@@ -71,26 +71,7 @@ export const deletePost = createAsyncThunk(
 const postsSlice = createSlice({
     name: "posts",
     initialState,
-    reducers: {
-        // postAdded: {
-        //     reducer(state, action) {
-        //         state.posts.push(action.payload);
-        //     },
-        //     prepare(title, content, user_id) {
-        //         return {
-        //             payload: {
-        //                 title,
-        //                 content,
-        //                 user_id,
-        //             },
-        //         };
-        //     },
-        // },
-        // postsRemoved(state, action) {
-        //     const index = state.posts.findIndex(r => r.id === action.payload);
-        //     state.posts.splice(index, 1);
-        // },
-    },
+    reducers: {},
     extraReducers: {
         [fetchPosts.pending](state) {
             state.status = "loading";
@@ -131,7 +112,5 @@ export const getPostsError = state => state.posts.error;
 export const selectPostById = (state, postId) => {
     return state.posts.posts.find(post => post.id === postId);
 };
-
-export const { postsAdded, postsRemoved } = postsSlice.actions;
 
 export default postsSlice.reducer;

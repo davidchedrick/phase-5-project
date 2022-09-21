@@ -10,7 +10,7 @@ import { EditProfile } from "./EditProfile";
 import defaultPic from "./images/default-user-pic.png";
 import { fetchProfiles, selectProfileById } from "./profileSlice";
 
-const Profile = ({ currentUser }) => {
+const Profile = ({ currentUser, setFetchUser }) => {
     console.log("currentUser: ", currentUser);
     const dispatch = useDispatch();
     const [isEditing, setIsEditing] = useState(false);
@@ -71,6 +71,7 @@ const Profile = ({ currentUser }) => {
                 <EditProfile
                     setIsEditing={setIsEditing}
                     currentUser={currentUser}
+                    setFetchUser={setFetchUser}
                 />
             ) : null}
         </div>

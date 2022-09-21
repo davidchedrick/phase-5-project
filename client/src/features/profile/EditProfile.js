@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { updateProfile } from "./profileSlice";
 
-export const EditProfile = ({ currentUser, setIsEditing }) => {
+export const EditProfile = ({ currentUser, setIsEditing, setFetchUser }) => {
     const history = useHistory();
     const dispatch = useDispatch();
     const [name, setName] = useState(currentUser.profile.name);
@@ -38,6 +38,7 @@ export const EditProfile = ({ currentUser, setIsEditing }) => {
             } finally {
                 setRequestStatus("idle");
                 setIsEditing(isEditing => !isEditing);
+                setFetchUser(fetchUser => !fetchUser);
                 history.push(`/api/profiles/${currentUser.id}`);
             }
         }

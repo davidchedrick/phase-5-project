@@ -14,8 +14,8 @@ import CommentPost from "./features/posts/CommentPost";
 import Profile from "./features/profile/Profile";
 import Header from "./features/header/Header";
 
-function AuthenticatedApp({ currentUser }) {
-    console.log("currentUser: AUTHAPP", currentUser);
+function AuthenticatedApp({ currentUser, setFetchUser }) {
+    console.log("currentUser: ", currentUser);
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -37,7 +37,10 @@ function AuthenticatedApp({ currentUser }) {
             <Header handleLogout={handleLogout} currentUser={currentUser} />
             <Switch>
                 <Route path="/api/profiles/:id">
-                    <Profile currentUser={currentUser} />
+                    <Profile
+                        currentUser={currentUser}
+                        setFetchUser={setFetchUser}
+                    />
                 </Route>
                 <Route path="/api/posts/edit/:id">
                     <EditPost currentUser={currentUser} />

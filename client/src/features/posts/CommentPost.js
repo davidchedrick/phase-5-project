@@ -7,7 +7,7 @@ import CommentsForm from "./CommentsForm";
 function CommentPost({ currentUser }) {
     const { id } = useParams();
     const post = useSelector(state => selectPostById(state, Number(id)));
-    console.log("post: ", post);
+    console.log("post:hhh ", post);
 
     if (!post) {
         return <Loading />;
