@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
+// import { useHistory } from "react-router";
 import styled from "styled-components";
 import ChatMessages from "./ChatMessages";
 import { addNewMessage } from "./chatSlice";
@@ -33,13 +34,14 @@ const Chat = ({ currentUser, chat }) => {
                 console.error("Failed to save the comment", err);
             } finally {
                 setAddRequestStatus("idle");
-                // history.push(`/api/posts/${id}`);
+                window.location.reload();
             }
         }
     }
 
     return (
         <>
+            <Button>...</Button>
             <div className="chat">
                 <h1>{chat?.topic}</h1>
                 <LineDiv></LineDiv>

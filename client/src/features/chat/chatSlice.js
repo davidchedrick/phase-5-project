@@ -121,7 +121,7 @@ const chatsSlice = createSlice({
         },
         [addNewMessage.fulfilled](state, action) {
             state.status = "succeeded";
-            state.chats = action.payload;
+            // state.chats = action.payload;
         },
         [addNewChat.fulfilled](state, action) {
             state.status = "succeeded";
