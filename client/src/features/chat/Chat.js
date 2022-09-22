@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import ChatMessages from "./ChatMessages";
+import { addNewMessage } from "./chatSlice";
 
 const Chat = ({ currentUser, chat }) => {
     const [message, setMessage] = useState("");
@@ -13,7 +15,7 @@ const Chat = ({ currentUser, chat }) => {
         e.preventDefault();
         addMessage({
             message,
-            // chat_id: id,
+            chat_id: chat.id,
             user_id: currentUser.id,
         });
     };
@@ -24,7 +26,7 @@ const Chat = ({ currentUser, chat }) => {
         if (canSave) {
             try {
                 setAddRequestStatus("pending");
-                // dispatch(addNewMessage(formData)).unwrap();
+                dispatch(addNewMessage(formData)).unwrap();
 
                 setMessage("");
             } catch (err) {
@@ -41,6 +43,9 @@ const Chat = ({ currentUser, chat }) => {
             <div className="chat">
                 <h1>{chat?.topic}</h1>
                 <LineDiv></LineDiv>
+                {chat?.chat_reply?.map(message => (
+                    <ChatMessages key={message.id} message={message} />
+                ))}
             </div>
 
             <Form onSubmit={handleSubmit}>

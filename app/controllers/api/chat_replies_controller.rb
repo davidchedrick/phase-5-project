@@ -11,7 +11,7 @@ class Api::ChatRepliesController < ApplicationController
 
     def create
         chat_reply = ChatReply.create!(chat_reply_params)
-        render json: chat, status: :created
+        render json: chat_reply, status: :created
     end
 
     def update 

@@ -38,23 +38,6 @@ export const addNewChat = createAsyncThunk(
     }
 );
 
-export const addNewMessage = createAsyncThunk(
-    "chats/addNewMessage",
-    async formData => {
-        const res = await fetch("/api/chat_replies", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify(formData),
-        });
-        const data = await res.json();
-        console.log("data:CHAT M ", data);
-        return data;
-    }
-);
-
 // export const updateChat = createAsyncThunk(
 //     "chats/updateChat",
 //     async formData => {
@@ -118,10 +101,6 @@ const chatsSlice = createSlice({
         [fetchChat.fulfilled](state, action) {
             state.status = "succeeded";
             state.chat = action.payload;
-        },
-        [addNewMessage.fulfilled](state, action) {
-            state.status = "succeeded";
-            state.chats = action.payload;
         },
         [addNewChat.fulfilled](state, action) {
             state.status = "succeeded";

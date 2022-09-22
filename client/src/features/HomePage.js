@@ -2,22 +2,24 @@ import ChatArea from "./chat/ChatArea";
 import PostsArea from "./posts/PostsArea";
 import TitleArea from "./title/TitleArea";
 import styled from "styled-components";
+import { Col, Container, Row } from "react-bootstrap";
 
 function HomePage({ currentUser }) {
     return (
         <>
             <TitleArea />
-            <AreaDiv>
-                <PostsArea currentUser={currentUser} />
-                <ChatArea currentUser={currentUser} />
-            </AreaDiv>
+            <Container fluid="md">
+                <Row>
+                    <Col>
+                        <PostsArea currentUser={currentUser} />
+                    </Col>
+                    <Col>
+                        <ChatArea currentUser={currentUser} />
+                    </Col>
+                </Row>
+            </Container>
         </>
     );
 }
-const AreaDiv = styled.div`
-    display: flex;
-    justify-content: center;
-    background-color: rgba(10, 210, 115, 0.5);
-`;
 
 export default HomePage;

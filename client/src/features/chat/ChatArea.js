@@ -21,7 +21,7 @@ const ChatArea = ({ currentUser }) => {
     const chat = useSelector(state =>
         selectChatByUserId(state, Number(currentUser.id))
     );
-    console.log("state: vvv", chat);
+    console.log("Chat: CHAT AREA", chat);
     if (chatsStatus === "loading") {
         return <Loading />;
     }
