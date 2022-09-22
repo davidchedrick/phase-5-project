@@ -13,6 +13,7 @@ import EditPost from "./features/posts/EditPost";
 import CommentPost from "./features/posts/CommentPost";
 import Profile from "./features/profile/Profile";
 import Header from "./features/header/Header";
+import { fetchChats } from "./features/chat/chatSlice";
 
 function AuthenticatedApp({ currentUser, setFetchUser }) {
     console.log("currentUser: ", currentUser);
@@ -21,6 +22,7 @@ function AuthenticatedApp({ currentUser, setFetchUser }) {
 
     useEffect(() => {
         dispatch(fetchPosts());
+        dispatch(fetchChats());
     }, [dispatch]);
 
     const handleLogout = () => {

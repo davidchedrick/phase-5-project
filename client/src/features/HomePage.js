@@ -9,7 +9,7 @@ function HomePage({ currentUser }) {
             <TitleArea />
             <AreaDiv>
                 <PostsArea currentUser={currentUser} />
-                <ChatArea />
+                <ChatArea currentUser={currentUser} />
             </AreaDiv>
         </>
     );

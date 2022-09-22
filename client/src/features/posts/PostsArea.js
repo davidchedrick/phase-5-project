@@ -15,6 +15,8 @@ const PostsArea = ({ currentUser }) => {
 
     return (
         <PostsDiv>
+            <h1>Explore Posts.</h1>
+
             {posts.length === 0 ? (
                 <h1 className="position-absolute top-50 start-50 translate-middle">
                     Add First Post!
