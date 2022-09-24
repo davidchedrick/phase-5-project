@@ -5,7 +5,7 @@ class User < ApplicationRecord
     has_many :comments, dependent: :nullify
     
 
-    has_many :chat_replies, dependent: :nullify
+    has_many :chat_replies, dependent: :destroy
     has_many :chats, through: :chat_reply
     
     has_secure_password

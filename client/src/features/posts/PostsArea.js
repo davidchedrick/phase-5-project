@@ -38,14 +38,13 @@ const PostsArea = ({ currentUser }) => {
 
 const PostsDiv = styled.div`
     display: flex;
-    justify-content: space-between;
+    // flex-wrap: wrap;
+    height: 100%;
+    // justify-content: space-between;
     flex-direction: column;
     align-items: center;
-    width: 300px;
-    height: 100%;
-    border: 2px solid;
-    box-shadow: 5px 3px 40px rgba(0, 0, 0, 0.75),
-        -5px -3px 40px rgba(0, 0, 0, 0.75);
+    width: 100%;
+    // border: 2px solid;
     background-color: rgb(238, 26, 192);
 `;
 

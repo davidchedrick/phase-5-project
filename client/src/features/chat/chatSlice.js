@@ -88,6 +88,7 @@ export const deleteChat = createAsyncThunk(
                 },
                 credentials: "include",
             });
+            console.log("res: ", res);
             if (res.ok) return selectedChat;
         } catch (err) {
             return err.message;

@@ -1,10 +1,11 @@
+import { Card } from "react-bootstrap";
+
 const ChatMessages = ({ message }) => {
     return (
-        <div className="chat-message mt-2 ">
-            <strong className="m-2">{message.message_author}:</strong>
-
-            <p className="m-2">{message.message}</p>
-        </div>
+        <Card.Body className="chat-message m-2 ">
+            <Card.Title className="m-2">{message.message_author}:</Card.Title>
+            <Card.Text className="m-2">{message.message}</Card.Text>
+        </Card.Body>
     );
 };
 
