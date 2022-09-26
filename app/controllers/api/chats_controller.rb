@@ -31,7 +31,7 @@ private
     end
 
     def chat_params 
-        params.permit(:title, :user_id)
+        params.permit(:topic, :user_id)
     end
   
     def authorize

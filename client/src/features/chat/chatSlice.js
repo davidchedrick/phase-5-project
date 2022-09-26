@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
     chats: [],
+    replys: [],
     status: "idle",
     error: null,
 };
@@ -105,8 +106,10 @@ const chatsSlice = createSlice({
             state.status = "loading";
         },
         [fetchChats.fulfilled](state, action) {
+            console.log("action11111111111: ", action.payload);
             state.status = "succeeded";
             state.chats = state.chats.concat(action.payload);
+            state.replys = state.replys.concat(action.payload);
         },
         [fetchChats.rejected](state, action) {
             state.status = "failed";
@@ -122,11 +125,12 @@ const chatsSlice = createSlice({
         },
         [addNewMessage.fulfilled](state, action) {
             state.status = "succeeded";
-            // state.chats = action.payload;
+            state.replys = state.replys.concat(action.payload);
+            // console.log("state:nnnmmmhhh ", state.chats);
         },
         [addNewChat.fulfilled](state, action) {
             state.status = "succeeded";
-            state.chats = action.payload;
+            state.chats = state.chats.concat(action.payload);
         },
         [deleteChat.fulfilled](state, action) {
             const { id } = action.payload;
@@ -136,12 +140,16 @@ const chatsSlice = createSlice({
     },
 });
 
+export const selectAllReplys = state => state.chats.replys;
 export const selectAllChats = state => state.chats.chats;
 export const getChatsStatus = state => state.chats.status;
 export const getcChatsError = state => state.chats.error;
 
 export const selectChatByUserId = (state, userId) => {
     return state.chats.chats.find(chat => chat.user_id === userId);
+};
+export const selectReplysByUserId = (state, userId) => {
+    return state.chats.replys.find(chat => chat.user_id === userId);
 };
 
 export default chatsSlice.reducer;

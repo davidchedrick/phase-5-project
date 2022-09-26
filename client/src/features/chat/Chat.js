@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import { useHistory } from "react-router";
 import styled from "styled-components";
 import ChatMessages from "./ChatMessages";
-import { addNewMessage, deleteChat } from "./chatSlice";
+import { addNewMessage, deleteChat, selectAllReplys } from "./chatSlice";
 
 const Chat = ({ currentUser, chat }) => {
     const [message, setMessage] = useState("");
     const [addRequestStatus, setAddRequestStatus] = useState("idle");
     const dispatch = useDispatch();
+    const replys = useSelector(selectAllReplys);
+    console.log("replysStatexxxxx555: ", replys);
     // const history = useHistory();
 
     const handleSubmit = e => {
@@ -34,7 +36,7 @@ const Chat = ({ currentUser, chat }) => {
                 console.error("Failed to save the comment", err);
             } finally {
                 setAddRequestStatus("idle");
-                window.location.reload();
+                // window.location.reload();
             }
         }
     }
@@ -58,7 +60,11 @@ const Chat = ({ currentUser, chat }) => {
                     <h1>{chat?.topic}</h1>
                     <LineDiv></LineDiv>
                     {chat?.chat_reply?.map(message => (
-                        <ChatMessages key={message.id} message={message} />
+                        <ChatMessages
+                            key={message.id}
+                            message={message}
+                            replys={replys}
+                        />
                     ))}
                 </Card.Body>
 

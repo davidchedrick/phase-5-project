@@ -1,28 +1,62 @@
-import { Button } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 // import { useParams } from "react-router";
 import styled from "styled-components";
 import Loading from "../Loading";
 import Chat from "./Chat";
 import {
+    addNewChat,
     fetchChats,
     getChatsStatus,
     selectAllChats,
+    selectAllReplys,
     selectChatByUserId,
 } from "./chatSlice";
 
 const ChatArea = ({ currentUser }) => {
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     // const { id } = useParams();
 
     // const chats = useSelector(selectAllChats);
     // console.log("chats: vvv", chats);
+    const [topic, setTopic] = useState("");
+    const [newChat, setNewChat] = useState(false);
+    const [addRequestStatus, setAddRequestStatus] = useState("idle");
+
     const chatsStatus = useSelector(getChatsStatus);
-    console.log("chatsStatus: ", chatsStatus);
+    const replys = useSelector(selectAllReplys);
+    console.log("replysStatexxxxx555: ", replys);
     const chat = useSelector(state =>
         selectChatByUserId(state, Number(currentUser.id))
     );
-    console.log("Chat: CHAT AREA", chat);
+
+    const handleSubmit = e => {
+        console.log("e: ", e);
+        e.preventDefault();
+        addChat({
+            topic,
+            user_id: currentUser.id,
+        });
+    };
+    const canSave = [topic].every(Boolean) && addRequestStatus === "idle";
+
+    const addChat = formData => {
+        if (canSave) {
+            try {
+                setAddRequestStatus("pending");
+                dispatch(addNewChat(formData)).unwrap();
+
+                setTopic("");
+            } catch (err) {
+                console.error("Failed to save the comment", err);
+            } finally {
+                setAddRequestStatus("idle");
+                // window.location.reload();
+            }
+        }
+    };
+
     if (chatsStatus === "loading") {
         return <Loading />;
     }
@@ -37,7 +71,10 @@ const ChatArea = ({ currentUser }) => {
                 <AddDiv>
                     <h1 className="pb-3">Start New Chat!</h1>
 
-                    <BtnDiv className="btn btn-dark ">
+                    <BtnDiv
+                        onClick={() => setNewChat(newChat => !newChat)}
+                        className="btn btn-dark "
+                    >
                         <Button className="btn-sm" variant="outline-danger">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -53,6 +90,24 @@ const ChatArea = ({ currentUser }) => {
                         </Button>
                         <p>New Chat</p>
                     </BtnDiv>
+                    {newChat === true ? (
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group className="m-2 mb-1" controlId="topic">
+                                <Form.Control
+                                    placeholder="Add Chat Topic"
+                                    type="text"
+                                    value={topic}
+                                    onChange={e => setTopic(e.target.value)}
+                                    name="topic"
+                                />
+                            </Form.Group>
+                            <div className="d-grid m-2 ">
+                                <Button variant="info" size="lg" type="submit">
+                                    Submit
+                                </Button>
+                            </div>
+                        </Form>
+                    ) : null}
                 </AddDiv>
             ) : (
                 <ChatDiv>
