@@ -25,8 +25,7 @@ const ChatArea = ({ currentUser }) => {
     const [addRequestStatus, setAddRequestStatus] = useState("idle");
 
     const chatsStatus = useSelector(getChatsStatus);
-    const replys = useSelector(selectAllReplys);
-    console.log("replysStatexxxxx555: ", replys);
+
     const chat = useSelector(state =>
         selectChatByUserId(state, Number(currentUser.id))
     );
@@ -123,7 +122,7 @@ const ChatArea = ({ currentUser }) => {
 const ChatDiv = styled.div`
     display: flex;
     // flex-wrap: wrap;
-    height: 100%;
+    height: 1000px;
     // justify-content: space-between;
     flex-direction: column;
     align-items: center;

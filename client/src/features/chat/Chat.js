@@ -7,11 +7,13 @@ import ChatMessages from "./ChatMessages";
 import { addNewMessage, deleteChat, selectAllReplys } from "./chatSlice";
 
 const Chat = ({ currentUser, chat }) => {
+    console.log("chat: ", chat);
     const [message, setMessage] = useState("");
     const [addRequestStatus, setAddRequestStatus] = useState("idle");
     const dispatch = useDispatch();
     const replys = useSelector(selectAllReplys);
     console.log("replysStatexxxxx555: ", replys);
+
     // const history = useHistory();
 
     const handleSubmit = e => {
@@ -59,6 +61,9 @@ const Chat = ({ currentUser, chat }) => {
                 <Card.Body className="">
                     <h1>{chat?.topic}</h1>
                     <LineDiv></LineDiv>
+                    {chat.chat_reply.length === 0 ? (
+                        <h3 className="mt-4">Start The Chat!</h3>
+                    ) : null}
                     {chat?.chat_reply?.map(message => (
                         <ChatMessages
                             key={message.id}

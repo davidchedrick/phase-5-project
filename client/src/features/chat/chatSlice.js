@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
     chats: [],
-    replys: [],
+    // replys: [],
     status: "idle",
     error: null,
 };
@@ -109,7 +109,7 @@ const chatsSlice = createSlice({
             console.log("action11111111111: ", action.payload);
             state.status = "succeeded";
             state.chats = state.chats.concat(action.payload);
-            state.replys = state.replys.concat(action.payload);
+            // state.replys = state.replys.concat(action.payload);
         },
         [fetchChats.rejected](state, action) {
             state.status = "failed";
@@ -125,7 +125,10 @@ const chatsSlice = createSlice({
         },
         [addNewMessage.fulfilled](state, action) {
             state.status = "succeeded";
-            state.replys = state.replys.concat(action.payload);
+            const newMessage = state.chats[action.payload.chat_id];
+            console.log("newMessage: ", newMessage);
+            // debugger;
+            // state.replys = state.replys.concat(action.payload);
             // console.log("state:nnnmmmhhh ", state.chats);
         },
         [addNewChat.fulfilled](state, action) {
