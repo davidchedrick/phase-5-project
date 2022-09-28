@@ -89,7 +89,6 @@ const messagesSlice = createSlice({
             state.status = "loading";
         },
         [fetchMessages.fulfilled](state, action) {
-            console.log("action11111111111: ", action.payload);
             state.status = "succeeded";
             state.messages = state.messages.concat(action.payload);
             // state.replys = state.replys.concat(action.payload);
@@ -108,8 +107,9 @@ const messagesSlice = createSlice({
         // },
         [addNewMessage.fulfilled](state, action) {
             state.status = "succeeded";
-            const newMessage = state.messages[action.payload.message_id];
-            console.log("newMessage: ", newMessage);
+            state.messages.unshift(action.payload);
+            // const newMessage = state.messages[action.payload.message_id];
+            // console.log("newMessage: ", newMessage);
             // debugger;
             // state.replys = state.replys.concat(action.payload);
             // console.log("state:nnnmmmhhh ", state.messages);

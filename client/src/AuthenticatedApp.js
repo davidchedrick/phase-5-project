@@ -16,6 +16,7 @@ import Header from "./features/header/Header";
 import { fetchChats } from "./features/chat/chatSlice";
 import MessageArea from "./features/messages/MessageArea";
 import Message from "./features/messages/Message";
+import { fetchMessages } from "./features/messages/messageSlice";
 
 function AuthenticatedApp({ currentUser, setFetchUser }) {
     console.log("currentUser: ", currentUser);
@@ -25,6 +26,7 @@ function AuthenticatedApp({ currentUser, setFetchUser }) {
     useEffect(() => {
         dispatch(fetchPosts());
         dispatch(fetchChats());
+        dispatch(fetchMessages());
     }, [dispatch]);
 
     const handleLogout = () => {

@@ -33,9 +33,9 @@ const MessageArea = ({ currentUser, setFetchUser }) => {
     const [addRequestStatus, setAddRequestStatus] = useState("idle");
     const [receiver, setReceiver] = useState("");
 
-    useEffect(() => {
-        dispatch(fetchMessages(id));
-    }, [dispatch, id]);
+    // useEffect(() => {
+    //     dispatch(fetchMessages(id));
+    // }, [dispatch, id]);
 
     const handleSubmit = e => {
         e.preventDefault();
