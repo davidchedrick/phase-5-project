@@ -28,6 +28,7 @@ export const fetchMessage = createAsyncThunk(
 export const addNewMessage = createAsyncThunk(
     "messages/addNewMessage",
     async formData => {
+        console.log("formDataxxx: ", formData);
         const res = await fetch("/api/messages", {
             method: "POST",
             headers: {
@@ -37,6 +38,7 @@ export const addNewMessage = createAsyncThunk(
             body: JSON.stringify(formData),
         });
         const data = await res.json();
+        console.log("data:xxxx ", data);
         return data;
     }
 );
@@ -83,19 +85,19 @@ const messagesSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: {
-        // [fetchMessages.pending](state) {
-        //     state.status = "loading";
-        // },
-        // [fetchMessages.fulfilled](state, action) {
-        //     console.log("action11111111111: ", action.payload);
-        //     state.status = "succeeded";
-        //     state.messages = state.messages.concat(action.payload);
-        //     // state.replys = state.replys.concat(action.payload);
-        // },
-        // [fetchMessages.rejected](state, action) {
-        //     state.status = "failed";
-        //     state.error = action.error.message;
-        // },
+        [fetchMessages.pending](state) {
+            state.status = "loading";
+        },
+        [fetchMessages.fulfilled](state, action) {
+            console.log("action11111111111: ", action.payload);
+            state.status = "succeeded";
+            state.messages = state.messages.concat(action.payload);
+            // state.replys = state.replys.concat(action.payload);
+        },
+        [fetchMessages.rejected](state, action) {
+            state.status = "failed";
+            state.error = action.error.message;
+        },
         // [fetchMessage.pending](state) {
         //     state.status = "loading";
         //     // state.message = null;
@@ -104,23 +106,25 @@ const messagesSlice = createSlice({
         //     state.status = "succeeded";
         //     state.message = action.payload;
         // },
-        // [addNewMessage.fulfilled](state, action) {
-        //     state.status = "succeeded";
-        //     const newMessage = state.messages[action.payload.message_id];
-        //     console.log("newMessage: ", newMessage);
-        //     // debugger;
-        //     // state.replys = state.replys.concat(action.payload);
-        //     // console.log("state:nnnmmmhhh ", state.messages);
-        // },
-        // [addNewMessage.fulfilled](state, action) {
-        //     state.status = "succeeded";
-        //     state.messages = state.messages.concat(action.payload);
-        // },
-        // [deleteMessage.fulfilled](state, action) {
-        //     const { id } = action.payload;
-        //     const messages = state.messages.filter(message => message.id !== id);
-        //     state.messages = messages;
-        // },
+        [addNewMessage.fulfilled](state, action) {
+            state.status = "succeeded";
+            const newMessage = state.messages[action.payload.message_id];
+            console.log("newMessage: ", newMessage);
+            // debugger;
+            // state.replys = state.replys.concat(action.payload);
+            // console.log("state:nnnmmmhhh ", state.messages);
+        },
+        [addNewMessage.fulfilled](state, action) {
+            state.status = "succeeded";
+            state.messages = state.messages.concat(action.payload);
+        },
+        [deleteMessage.fulfilled](state, action) {
+            const { id } = action.payload;
+            const messages = state.messages.filter(
+                message => message.id !== id
+            );
+            state.messages = messages;
+        },
     },
 });
 
@@ -129,9 +133,14 @@ export const selectAllMessages = state => state.messages.messages;
 export const getMessagesStatus = state => state.messages.status;
 export const getMessagesError = state => state.messages.error;
 
-// export const selectMessageByUserId = (state, userId) => {
-//     return state.messages.messages.find(message => message.user_id === userId);
-// };
+export const selectMessageByUserId = (state, userId) => {
+    return state.messages.messages.filter(
+        message => message.user_id === userId
+    );
+};
+export const selectMessageByMessageId = (state, messageId) => {
+    return state.messages.messages.find(message => message.id === messageId);
+};
 // export const selectMessageReplysByUserId = (state, userId) => {
 //     return state.messages.replys.find(message => message.user_id === userId);
 // };

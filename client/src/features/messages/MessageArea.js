@@ -6,21 +6,27 @@ import {
     addNewMessage,
     fetchMessages,
     selectAllMessages,
+    selectMessageByUserId,
     selectMessageReplysByUserId,
 } from "./messageSlice";
 import styled from "styled-components";
 import { Button, Form } from "react-bootstrap";
+import Messages from "./Messages";
 
 const MessageArea = ({ currentUser, setFetchUser }) => {
     const { id } = useParams();
     const dispatch = useDispatch();
-    // const state = useSelector(state =>
-    //     selectMessageReplysByUserId(state, Number(id))
-    // );
+
+    const userSent = useSelector(state =>
+        selectMessageByUserId(state, Number(id))
+    );
+    console.log("userSent: ", userSent);
+
     const state = useSelector(selectAllMessages);
     console.log("stttate: ", state);
-    const messages = state.messages;
-    console.log("messages: ", messages);
+    // const messages = state.messages;
+    // console.log("messages: ", messages);
+
     const status = state.status;
     const error = state.error;
     const [newMessage, setNewMessage] = useState(false);
@@ -32,8 +38,8 @@ const MessageArea = ({ currentUser, setFetchUser }) => {
     }, [dispatch, id]);
 
     const handleSubmit = e => {
-        console.log("e: ", e);
         e.preventDefault();
+
         addMessage({
             receiver,
             user_id: currentUser.id,
@@ -43,6 +49,7 @@ const MessageArea = ({ currentUser, setFetchUser }) => {
     const canSave = [receiver].every(Boolean) && addRequestStatus === "idle";
 
     const addMessage = formData => {
+        console.log("formData: ", formData);
         if (canSave) {
             try {
                 setAddRequestStatus("pending");
@@ -58,7 +65,7 @@ const MessageArea = ({ currentUser, setFetchUser }) => {
         }
     };
 
-    if (status === "pending" || error || messages === null) return <Loading />;
+    if (status === "pending" || error || state === null) return <Loading />;
 
     return (
         <>
@@ -66,57 +73,56 @@ const MessageArea = ({ currentUser, setFetchUser }) => {
                 <h1>Message.</h1>
             </TitleDiv>
 
-            {messages === undefined ? (
-                <AddDiv>
-                    <h1 className="pb-3">Send New Message!</h1>
+            <AddDiv>
+                <h1 className="pb-3">Send New Message!</h1>
 
-                    <BtnDiv
-                        onClick={() => setNewMessage(newMessage => !newMessage)}
-                        className="btn btn-dark "
-                    >
-                        <Button className="btn-sm" variant="outline-danger">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                className="bi bi-envelope"
-                                viewBox="0 0 16 16"
-                            >
-                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
-                            </svg>
-                        </Button>
-                        <p>Message</p>
-                    </BtnDiv>
-                    {newMessage === true ? (
-                        <Form onSubmit={handleSubmit}>
-                            <Form.Group
-                                className="m-2 mb-1"
-                                controlId="receiver"
-                            >
-                                <Form.Control
-                                    placeholder="Send To:"
-                                    type="text"
-                                    value={receiver}
-                                    onChange={e => setReceiver(e.target.value)}
-                                    name="receiver"
-                                />
-                            </Form.Group>
-                            <div className="d-grid m-2 ">
-                                <Button variant="info" size="lg" type="submit">
-                                    Submit
-                                </Button>
-                            </div>
-                        </Form>
-                    ) : null}
-                </AddDiv>
-            ) : (
-                <ChatDiv>
-                    <div>
-                        {/* <Chat currentUser={currentUser} chat={chat} /> */}
-                    </div>
-                </ChatDiv>
-            )}
+                <BtnDiv
+                    onClick={() => setNewMessage(newMessage => !newMessage)}
+                    className="btn btn-dark "
+                >
+                    <Button className="btn-sm" variant="outline-danger">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            className="bi bi-envelope"
+                            viewBox="0 0 16 16"
+                        >
+                            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
+                        </svg>
+                    </Button>
+                    <p>Message</p>
+                </BtnDiv>
+                {newMessage === true ? (
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group className="m-2 mb-1" controlId="receiver">
+                            <Form.Control
+                                placeholder="Send To:"
+                                type="text"
+                                value={receiver}
+                                onChange={e => setReceiver(e.target.value)}
+                                name="receiver"
+                            />
+                        </Form.Group>
+                        <div className="d-grid m-2 ">
+                            <Button variant="info" size="lg" type="submit">
+                                Submit
+                            </Button>
+                        </div>
+                    </Form>
+                ) : null}
+
+                <div>
+                    {userSent?.map(sent => (
+                        <Messages
+                            key={sent.id}
+                            currentUser={currentUser}
+                            sent={sent}
+                        />
+                    ))}
+                </div>
+            </AddDiv>
         </>
     );
 };

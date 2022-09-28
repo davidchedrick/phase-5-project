@@ -15,6 +15,7 @@ import Profile from "./features/profile/Profile";
 import Header from "./features/header/Header";
 import { fetchChats } from "./features/chat/chatSlice";
 import MessageArea from "./features/messages/MessageArea";
+import Message from "./features/messages/Message";
 
 function AuthenticatedApp({ currentUser, setFetchUser }) {
     console.log("currentUser: ", currentUser);
@@ -47,6 +48,12 @@ function AuthenticatedApp({ currentUser, setFetchUser }) {
                 </Route>
                 <Route path="/api/messages/:id">
                     <MessageArea
+                        currentUser={currentUser}
+                        setFetchUser={setFetchUser}
+                    />
+                </Route>
+                <Route path="/api/message/:id">
+                    <Message
                         currentUser={currentUser}
                         setFetchUser={setFetchUser}
                     />
