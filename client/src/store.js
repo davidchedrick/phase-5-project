@@ -5,6 +5,7 @@ import postsReducer from "./features/posts/postsSlice";
 import commentsReducer from "./features/posts/commentsSlice";
 import profilesReducer from "./features/profile/profileSlice";
 import chatsReducer from "./features/chat/chatSlice";
+import messagesReducer from "./features/messages/messageSlice";
 
 const store = configureStore({
     reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
         comments: commentsReducer,
         profiles: profilesReducer,
         chats: chatsReducer,
+        messages: messagesReducer,
     },
 });
 
