@@ -11,7 +11,6 @@ import defaultPic from "./images/default-user-pic.png";
 import { fetchProfiles, selectProfileById } from "./profileSlice";
 
 const Profile = ({ currentUser, setFetchUser }) => {
-    console.log("currentUser: ", currentUser);
     const dispatch = useDispatch();
     const [isEditing, setIsEditing] = useState(false);
     const [isViewingPosts, setIsViewingPosts] = useState(false);

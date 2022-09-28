@@ -73,7 +73,7 @@ function Header({ handleLogout, currentUser }) {
                 </BtnDiv>
             </Link>
 
-            <Link to="">
+            <Link to={`/api/messages/${currentUser.id}`}>
                 <BtnDiv className="btn btn-dark">
                     <Button className="btn-sm" variant="outline-danger">
                         <svg

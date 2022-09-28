@@ -13,7 +13,7 @@ const ChatMessages = ({ message, replys }) => {
         <Card.Body className="chat-message m-2 ">
             <Card.Title className="m-2">{message.message_author}:</Card.Title>
             <Card.Text className="m-2">
-                {message.message === undefined ? "cat" : null}
+                {/* {message.message === undefined ? "cat" : null} */}
                 {message.message}
                 {/* {replys.message} */}
             </Card.Text>
