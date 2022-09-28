@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     resources :posts
     resources :chats
     resources :chat_replies
+    resources :messages
+    resources :message_replies
     resources :profiles, only: [:index, :show, :update]
     resources :comments, only: [:create]
   
