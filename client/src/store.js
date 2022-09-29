@@ -6,6 +6,7 @@ import commentsReducer from "./features/posts/commentsSlice";
 import profilesReducer from "./features/profile/profileSlice";
 import chatsReducer from "./features/chat/chatSlice";
 import messagesReducer from "./features/messages/messageSlice";
+import messageRepliesReducer from "./features/messages/messageReplySlice";
 
 const store = configureStore({
     reducer: {
@@ -15,6 +16,7 @@ const store = configureStore({
         profiles: profilesReducer,
         chats: chatsReducer,
         messages: messagesReducer,
+        message_replies: messageRepliesReducer,
     },
 });
 

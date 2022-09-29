@@ -1,26 +1,60 @@
+import { useState } from "react";
+import { Form } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Loading from "../Loading";
 import Posts from "./Posts";
 import { selectAllPosts, getPostsStatus } from "./postsSlice";
 
-const PostsArea = ({ currentUser }) => {
+const PostsArea = ({ currentUser, isSearching }) => {
     const posts = useSelector(selectAllPosts);
     console.log("posts: ", posts);
     const postStatus = useSelector(getPostsStatus);
+    const handleSubmit = e => e.preventDefault();
+    const [searchResults, setSearchResults] = useState([]);
+    console.log("searchResults: ", searchResults);
+
+    const handleSearchChange = e => {
+        const results = posts.filter(
+            post =>
+                post.title.includes(e.target.value) ||
+                post.content.includes(e.target.value)
+        );
+
+        setSearchResults(results);
+    };
 
     if (postStatus === "loading") {
         return <Loading />;
     }
-
+    // while (searchResults.length === 0) {
+    //     setSearchResults(posts);
+    // }
     return (
         <PostsDiv>
+            {isSearching ? (
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group className="mb-3" controlId="search">
+                        <Form.Control
+                            onChange={handleSearchChange}
+                            type="text"
+                            placeholder="Search Posts"
+                        />
+                    </Form.Group>
+                </Form>
+            ) : null}
             <h1>Explore Posts.</h1>
 
-            {posts.length === 0 ? (
-                <h1 className="position-absolute top-50 start-50 translate-middle">
-                    Add First Post!
-                </h1>
+            {isSearching ? (
+                <div>
+                    {searchResults.map(post => (
+                        <Posts
+                            currentUser={currentUser}
+                            key={post.id}
+                            post={post}
+                        />
+                    ))}
+                </div>
             ) : (
                 <div>
                     {posts.map(post => (
@@ -39,7 +73,7 @@ const PostsArea = ({ currentUser }) => {
 const PostsDiv = styled.div`
     display: flex;
     // flex-wrap: wrap;
-    height: 100%;
+    height: 3000px;
     // justify-content: space-between;
     flex-direction: column;
     align-items: center;

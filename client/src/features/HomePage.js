@@ -5,18 +5,24 @@ import { useState } from "react";
 
 function HomePage({ currentUser }) {
     const [useChat, setUseChat] = useState(false);
+    const [isSearching, setIsSearching] = useState(false);
+
     return (
         <>
             <TitleArea
                 currentUser={currentUser}
                 useChat={useChat}
                 setUseChat={setUseChat}
+                setIsSearching={setIsSearching}
             />
             <>
                 {useChat ? (
                     <ChatArea currentUser={currentUser} />
                 ) : (
-                    <PostsArea currentUser={currentUser} />
+                    <PostsArea
+                        isSearching={isSearching}
+                        currentUser={currentUser}
+                    />
                 )}
             </>
         </>

@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { selectMessageByMessageId } from "./messageSlice";
+import MessageReply from "./MessageReply";
+import { addNewMessageReply } from "./messageReplySlice";
+import { fetchMessages, selectMessageByMessageId } from "./messageSlice";
 
-const Message = () => {
+const Message = ({ currentUser }) => {
     const { id } = useParams();
     const [newMessage, setNewMessage] = useState("");
 
@@ -15,32 +17,32 @@ const Message = () => {
     );
 
     console.log("message: ", message);
+
     const handleSubmit = e => {
         e.preventDefault();
-        // addMessage({
-        //     message,
-        //     chat_id: chat.id,
-        //     user_id: currentUser.id,
-        // });
+        addReplyMessage({
+            body: newMessage,
+            message_id: message.id,
+            user_id: currentUser.id,
+        });
     };
 
-    const canSave = [message].every(Boolean) && addRequestStatus === "idle";
+    const canSave = [newMessage].every(Boolean) && addRequestStatus === "idle";
 
-    function addMessage(formData) {
+    const addReplyMessage = formData => {
         if (canSave) {
             try {
                 setAddRequestStatus("pending");
-                // dispatch(addNewMessage(formData)).unwrap();
-
-                // setMessage("");
+                dispatch(addNewMessageReply(formData)).unwrap();
+                dispatch(fetchMessages);
+                setNewMessage("");
             } catch (err) {
                 console.error("Failed to save the comment", err);
             } finally {
                 setAddRequestStatus("idle");
-                // window.location.reload();
             }
         }
-    }
+    };
 
     return (
         <>
@@ -48,7 +50,11 @@ const Message = () => {
                 <Card.Body className="">
                     {message.message_reply.length === 0 ? (
                         <h3 className="mt-4">Start The Chat!</h3>
-                    ) : null}
+                    ) : (
+                        <div>
+                            <MessageReply />
+                        </div>
+                    )}
                 </Card.Body>
 
                 <Form onSubmit={handleSubmit}>

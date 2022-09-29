@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
     chats: [],
-    // replys: [],
     status: "idle",
     error: null,
 };
@@ -10,7 +9,6 @@ const initialState = {
 export const fetchChats = createAsyncThunk("chats/fetchChats", async () => {
     const res = await fetch("/api/chats");
     const data = await res.json();
-    console.log("data:ggg ", data);
     return data;
 });
 

@@ -17,6 +17,7 @@ import { fetchChats } from "./features/chat/chatSlice";
 import MessageArea from "./features/messages/MessageArea";
 import Message from "./features/messages/Message";
 import { fetchMessages } from "./features/messages/messageSlice";
+import { fetchMessageReplies } from "./features/messages/messageReplySlice";
 
 function AuthenticatedApp({ currentUser, setFetchUser }) {
     console.log("currentUser: ", currentUser);
@@ -27,6 +28,7 @@ function AuthenticatedApp({ currentUser, setFetchUser }) {
         dispatch(fetchPosts());
         dispatch(fetchChats());
         dispatch(fetchMessages());
+        dispatch(fetchMessageReplies());
     }, [dispatch]);
 
     const handleLogout = () => {
