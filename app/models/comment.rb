@@ -5,5 +5,7 @@ class Comment < ApplicationRecord
     def comment_author
       self.user.username
      end
+
+    
   
 end

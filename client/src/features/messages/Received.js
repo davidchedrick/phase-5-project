@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteMessage } from "./messageSlice";
 
-const Messages = ({ sent }) => {
+const Received = ({ sent }) => {
     const dispatch = useDispatch();
 
     const selectDeleteMessage = () => {
@@ -20,12 +20,12 @@ const Messages = ({ sent }) => {
                 className="text-decoration-none"
             >
                 <Card.Body className="chat-message m-2 ">
-                    <Card.Title className="m-2">{sent.receiver}</Card.Title>
+                    <Card.Title className="m-2">{sent.sender}</Card.Title>
                     <Card.Text className="m-2">
-                        {/* {
+                        {
                             sent?.message_reply[sent.message_reply.length - 1]
                                 .body
-                        } */}
+                        }
                     </Card.Text>
                 </Card.Body>
             </Link>
@@ -36,4 +36,4 @@ const Messages = ({ sent }) => {
     );
 };
 
-export default Messages;
+export default Received;

@@ -36,9 +36,11 @@ const Profile = ({ currentUser, setFetchUser }) => {
                         {currentUser.id === Number(id) ? (
                             <Button
                                 className="align-self-start m-3"
-                                onClick={() =>
-                                    setIsEditing(isEditing => !isEditing)
-                                }
+                                onClick={() => {
+                                    setIsEditing(isEditing => !isEditing);
+                                    setIsGroupChat(false);
+                                    setIsViewingPosts(false);
+                                }}
                             >
                                 Edit
                             </Button>
@@ -47,6 +49,7 @@ const Profile = ({ currentUser, setFetchUser }) => {
                                 className="align-self-start m-3"
                                 onClick={() => {
                                     setIsGroupChat(isGroupChat => !isGroupChat);
+                                    setIsViewingPosts(false);
                                 }}
                             >
                                 Group Chat
@@ -55,11 +58,13 @@ const Profile = ({ currentUser, setFetchUser }) => {
 
                         <Button
                             className="align-self-start m-3"
-                            onClick={() =>
+                            onClick={() => {
                                 setIsViewingPosts(
                                     isViewingPosts => !isViewingPosts
-                                )
-                            }
+                                );
+                                setIsGroupChat(false);
+                                setIsEditing(false);
+                            }}
                         >
                             Posts
                         </Button>

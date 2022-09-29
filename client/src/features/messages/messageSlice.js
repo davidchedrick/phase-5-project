@@ -141,6 +141,11 @@ export const selectMessageByUserId = (state, userId) => {
 export const selectMessageByMessageId = (state, messageId) => {
     return state.messages.messages.find(message => message.id === messageId);
 };
+export const selectMessageByUserReceivedId = (state, id) => {
+    return state.messages.messages.filter(
+        message => message.receiver_id === id
+    );
+};
 // export const selectMessageReplysByUserId = (state, userId) => {
 //     return state.messages.replys.find(message => message.user_id === userId);
 // };

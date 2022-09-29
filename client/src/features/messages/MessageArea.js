@@ -1,41 +1,41 @@
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../Loading";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
     addNewMessage,
-    fetchMessages,
     selectAllMessages,
     selectMessageByUserId,
-    selectMessageReplysByUserId,
+    selectMessageByUserReceivedId,
 } from "./messageSlice";
 import styled from "styled-components";
 import { Button, Form } from "react-bootstrap";
 import Messages from "./Messages";
+import Received from "./Received";
 
-const MessageArea = ({ currentUser, setFetchUser }) => {
+const MessageArea = ({ currentUser }) => {
     const { id } = useParams();
-    const dispatch = useDispatch();
 
+    const dispatch = useDispatch();
+    const history = useHistory();
     const userSent = useSelector(state =>
         selectMessageByUserId(state, Number(id))
     );
+
     console.log("userSent: ", userSent);
+    const userReceived = useSelector(state =>
+        selectMessageByUserReceivedId(state, currentUser.id)
+    );
 
     const state = useSelector(selectAllMessages);
-    console.log("stttate: ", state);
-    // const messages = state.messages;
-    // console.log("messages: ", messages);
 
     const status = state.status;
     const error = state.error;
     const [newMessage, setNewMessage] = useState(false);
+    const [newId, setNewId] = useState(null);
+    console.log("newId: ", newId);
     const [addRequestStatus, setAddRequestStatus] = useState("idle");
     const [receiver, setReceiver] = useState("");
-
-    // useEffect(() => {
-    //     dispatch(fetchMessages(id));
-    // }, [dispatch, id]);
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -53,14 +53,17 @@ const MessageArea = ({ currentUser, setFetchUser }) => {
         if (canSave) {
             try {
                 setAddRequestStatus("pending");
-                dispatch(addNewMessage(formData)).unwrap();
+                dispatch(addNewMessage(formData))
+                    .unwrap()
+                    .then(data => setNewId(data.id));
 
                 setReceiver("");
             } catch (err) {
                 console.error("Failed to save the comment", err);
             } finally {
                 setAddRequestStatus("idle");
-                // window.location.reload();
+                // history.push(`/api/messages/${newId}`);
+                setNewId(null);
             }
         }
     };
@@ -114,8 +117,20 @@ const MessageArea = ({ currentUser, setFetchUser }) => {
                 ) : null}
 
                 <div>
+                    <p>Sent:</p>
                     {userSent?.map(sent => (
                         <Messages
+                            key={sent.id}
+                            currentUser={currentUser}
+                            sent={sent}
+                        />
+                    ))}
+                </div>
+
+                <div>
+                    <p>Received:</p>
+                    {userReceived?.map(sent => (
+                        <Received
                             key={sent.id}
                             currentUser={currentUser}
                             sent={sent}
@@ -126,18 +141,6 @@ const MessageArea = ({ currentUser, setFetchUser }) => {
         </>
     );
 };
-
-const ChatDiv = styled.div`
-    display: flex;
-    // flex-wrap: wrap;
-    height: 100;
-    // justify-content: space-between;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    // border: 2px solid;
-    background-color: rgb(238, 26, 192);
-`;
 
 const AddDiv = styled.div`
     display: flex;
