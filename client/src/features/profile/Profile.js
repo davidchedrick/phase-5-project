@@ -9,11 +9,13 @@ import UserPosts from "./UserPosts";
 // import UserProfile from "./UserProfile";
 import defaultPic from "./images/default-user-pic.png";
 import { fetchProfiles, selectProfileById } from "./profileSlice";
+import UserChat from "./UserChat";
 
 const Profile = ({ currentUser, setFetchUser }) => {
     const dispatch = useDispatch();
     const [isEditing, setIsEditing] = useState(false);
     const [isViewingPosts, setIsViewingPosts] = useState(false);
+    const [isGroupChat, setIsGroupChat] = useState(false);
     const { id } = useParams();
     const state = useSelector(state => selectProfileById(state, Number(id)));
     const profile = state.profiles;
@@ -43,9 +45,11 @@ const Profile = ({ currentUser, setFetchUser }) => {
                         ) : (
                             <Button
                                 className="align-self-start m-3"
-                                onClick={() => {}}
+                                onClick={() => {
+                                    setIsGroupChat(isGroupChat => !isGroupChat);
+                                }}
                             >
-                                Profile
+                                Group Chat
                             </Button>
                         )}
 
@@ -85,6 +89,10 @@ const Profile = ({ currentUser, setFetchUser }) => {
 
             {isViewingPosts ? (
                 <UserPosts profile={profile} currentUser={currentUser} />
+            ) : null}
+
+            {isGroupChat ? (
+                <UserChat profile={profile} currentUser={currentUser} />
             ) : null}
 
             {isEditing ? (

@@ -2,7 +2,7 @@ class Api::ChatRepliesController < ApplicationController
 
     def index
         chat_reply = ChatReply.all
-        render json: Chat.all.order(created_at: :desc)
+        render json: chat_reply.order(created_at: :desc)
     end
   
     def show

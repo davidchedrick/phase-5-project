@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-// import { useHistory } from "react-router";
+import { useParams } from "react-router";
 import styled from "styled-components";
-import ChatMessages from "./ChatMessages";
-import { addNewMessage, deleteChat, selectAllReplys } from "./chatSlice";
+import Chat from "../chat/Chat";
+import ChatMessages from "../chat/ChatMessages";
+import { addNewMessage, selectChatByUserId } from "../chat/chatSlice";
 
-const Chat = ({ currentUser, chat }) => {
-    console.log("chat: ", chat);
+const UserChat = ({ currentUser, profile }) => {
+    console.log("profile: ", profile);
     const [message, setMessage] = useState("");
     const [addRequestStatus, setAddRequestStatus] = useState("idle");
     const dispatch = useDispatch();
-    const replys = useSelector(selectAllReplys);
-    console.log("replysStatexxxxx555: ", replys);
-
-    // const history = useHistory();
+    const { id } = useParams();
+    const chat = useSelector(state => selectChatByUserId(state, Number(id)));
+    console.log("chat: ", chat);
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -27,7 +27,7 @@ const Chat = ({ currentUser, chat }) => {
 
     const canSave = [message].every(Boolean) && addRequestStatus === "idle";
 
-    const addMessage = formData => {
+    function addMessage(formData) {
         if (canSave) {
             try {
                 setAddRequestStatus("pending");
@@ -41,23 +41,12 @@ const Chat = ({ currentUser, chat }) => {
                 // window.location.reload();
             }
         }
-    };
-
-    const selectDeleteChat = () => {
-        try {
-            dispatch(deleteChat({ id: chat.id })).unwrap();
-        } catch (err) {
-            console.error("Failed to delete the post", err);
-        }
-    };
+    }
 
     return (
-        <>
-            <Card className="chat text-center m-3 p-2">
-                <Button variant="danger" onClick={() => selectDeleteChat()}>
-                    Delete
-                </Button>
-
+        <ChatDiv>
+            {" "}
+            <Card>
                 <Card.Body className="">
                     <h1>{chat?.topic}</h1>
                     <LineDiv></LineDiv>
@@ -65,12 +54,7 @@ const Chat = ({ currentUser, chat }) => {
                         <h3 className="mt-4">Start The Chat!</h3>
                     ) : null}
 
-                    <ChatMessages
-                        key={message.id}
-                        message={message}
-                        currentUser={currentUser}
-                        chat={chat}
-                    />
+                    <ChatMessages chat={chat} />
                 </Card.Body>
 
                 <Form onSubmit={handleSubmit}>
@@ -91,9 +75,21 @@ const Chat = ({ currentUser, chat }) => {
                     </div>
                 </Form>
             </Card>
-        </>
+        </ChatDiv>
     );
 };
+
+const ChatDiv = styled.div`
+    display: flex;
+    // flex-wrap: wrap;
+    height: 1000px;
+    // justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    // border: 2px solid;
+    background-color: rgb(238, 26, 192);
+`;
 
 const LineDiv = styled.div`
     width: 100%;
@@ -103,4 +99,4 @@ const LineDiv = styled.div`
     background-color: rgba(238, 26, 192, 0);
 `;
 
-export default Chat;
+export default UserChat;

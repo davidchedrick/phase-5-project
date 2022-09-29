@@ -1,24 +1,21 @@
 import { Card } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { selectReplysByUserId } from "./chatSlice";
+import { selectMessageReplyByMessageId } from "./chatMessageSlice";
 
-const ChatMessages = ({ message, replys }) => {
-    // console.log("message: ", message);
-    // console.log("replys: ", replys);
-
-    // const m = useSelector(state =>
-    //     selectReplysByUserId(state, Number(currentUser.id))
-    // );
-    return (
-        <Card.Body className="chat-message m-2 ">
-            <Card.Title className="m-2">{message.message_author}:</Card.Title>
-            <Card.Text className="m-2">
-                {/* {message.message === undefined ? "cat" : null} */}
-                {message.message}
-                {/* {replys.message} */}
-            </Card.Text>
-        </Card.Body>
+const ChatMessages = ({ chat }) => {
+    const reply = useSelector(state =>
+        selectMessageReplyByMessageId(state, Number(chat.id))
     );
+    console.log("reply: ", reply);
+
+    const replyArea = reply.map(reply => (
+        <Card.Body key={reply.id} className="chat-message m-2 ">
+            <Card.Title className="m-2">{reply.message_author}:</Card.Title>
+            <Card.Text className="m-2">{reply.message}</Card.Text>
+        </Card.Body>
+    ));
+
+    return <>{replyArea}</>;
 };
 
 export default ChatMessages;

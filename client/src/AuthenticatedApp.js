@@ -18,6 +18,7 @@ import MessageArea from "./features/messages/MessageArea";
 import Message from "./features/messages/Message";
 import { fetchMessages } from "./features/messages/messageSlice";
 import { fetchMessageReplies } from "./features/messages/messageReplySlice";
+import { fetchChatReplies } from "./features/chat/chatMessageSlice";
 
 function AuthenticatedApp({ currentUser, setFetchUser }) {
     console.log("currentUser: ", currentUser);
@@ -27,6 +28,7 @@ function AuthenticatedApp({ currentUser, setFetchUser }) {
     useEffect(() => {
         dispatch(fetchPosts());
         dispatch(fetchChats());
+        dispatch(fetchChatReplies());
         dispatch(fetchMessages());
         dispatch(fetchMessageReplies());
     }, [dispatch]);
