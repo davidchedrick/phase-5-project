@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const UserPosts = ({ profile }) => {
     const postArea = profile?.user_posts.map(post => (
-        <Card key={post.id} className="text-center m-3">
+        <Card key={post.id} className="sh text-center m-3">
             <Card.Header className="">
                 <p>
                     <em>
@@ -19,7 +19,7 @@ const UserPosts = ({ profile }) => {
             </Card.Header>
             <Card.Body>
                 <Card.Title>{post.title}</Card.Title>
-                <Card.Text>{profile.short_content}</Card.Text>
+                <Card.Text>{post.content?.substring(0, 180)}</Card.Text>
                 <Link to={`posts/${post.id}`}>
                     <Button variant="outline-danger">Read</Button>
                 </Link>

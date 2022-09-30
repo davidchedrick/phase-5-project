@@ -6,7 +6,7 @@
   box-shadow: 5px 3px 40px rgba(0, 0, 0, 0.75),
       -5px -3px 40px rgba(0, 0, 0, 0.75);
   background-color: #f3f3f3;
-
+  
 }
 .chatInput {
   border: 2px solid rgb(32, 81, 243);
@@ -25,11 +25,23 @@
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
 }
 
-hbtn {
+.hbtn {
   font-size: x-small;
 }
 
+.pk {
+  background-color: rgb(238, 26, 192);
+}
 
+.sh {
+  box-shadow: 5px 3px 40px rgba(0, 0, 0, 0.75),
+      -5px -3px 40px rgba(0, 0, 0, 0.75);
+  
+}
+
+.ht {
+  height: 500vh;
+}
 
 .link-color {
   color: rgb(248, 9, 129);

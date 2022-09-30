@@ -16,8 +16,6 @@ const Message = ({ currentUser }) => {
         selectMessageByMessageId(state, Number(id))
     );
 
-    console.log("message: ", message);
-
     const handleSubmit = e => {
         e.preventDefault();
         addReplyMessage({

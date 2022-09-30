@@ -110,38 +110,29 @@ const ChatArea = ({ currentUser }) => {
 
 const ChatDiv = styled.div`
     display: flex;
-    // flex-wrap: wrap;
     height: 1000px;
-    // justify-content: space-between;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    // border: 2px solid;
     background-color: rgb(238, 26, 192);
 `;
 
 const AddDiv = styled.div`
     display: flex;
     padding: 100px;
-    // flex-wrap: wrap;
     height: 1000px;
-    // justify-content: space-between;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    // border: 2px solid;
     background-color: rgb(238, 26, 192);
 `;
 
 const TitleDiv = styled.div`
     display: flex;
-    // flex-wrap: wrap;
     height: 100%;
-    // justify-content: space-between;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    // border: 2px solid;
     background-color: rgb(238, 26, 192);
 `;
 

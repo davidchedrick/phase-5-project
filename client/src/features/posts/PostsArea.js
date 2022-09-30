@@ -68,13 +68,10 @@ const PostsArea = ({ currentUser, isSearching }) => {
 
 const PostsDiv = styled.div`
     display: flex;
-    // flex-wrap: wrap;
     height: 3000px;
-    // justify-content: space-between;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    // border: 2px solid;
     background-color: rgb(238, 26, 192);
 `;
 

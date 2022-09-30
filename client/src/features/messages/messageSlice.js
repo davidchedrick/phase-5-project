@@ -52,7 +52,6 @@ export const deleteMessage = createAsyncThunk(
                 },
                 credentials: "include",
             });
-            console.log("res: ", res);
             if (res.ok) return selectedMessage;
         } catch (err) {
             return err.message;

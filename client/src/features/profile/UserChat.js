@@ -7,7 +7,6 @@ import ChatMessages from "../chat/ChatMessages";
 import { addNewMessage, selectChatByUserId } from "../chat/chatSlice";
 
 const UserChat = ({ currentUser, profile }) => {
-    console.log("profile: ", profile);
     const [message, setMessage] = useState("");
     const [addRequestStatus, setAddRequestStatus] = useState("idle");
     const dispatch = useDispatch();
@@ -25,7 +24,7 @@ const UserChat = ({ currentUser, profile }) => {
 
     const canSave = [message].every(Boolean) && addRequestStatus === "idle";
 
-    function addMessage(formData) {
+    const addMessage = formData => {
         if (canSave) {
             try {
                 setAddRequestStatus("pending");
@@ -38,12 +37,11 @@ const UserChat = ({ currentUser, profile }) => {
                 setAddRequestStatus("idle");
             }
         }
-    }
+    };
 
     return (
-        <ChatDiv>
-            {" "}
-            <Card>
+        <ChatDiv className="p-4 ">
+            <Card className="sh">
                 <Card.Body className="">
                     <h1>{chat?.topic}</h1>
                     <LineDiv></LineDiv>
@@ -78,13 +76,10 @@ const UserChat = ({ currentUser, profile }) => {
 
 const ChatDiv = styled.div`
     display: flex;
-    // flex-wrap: wrap;
     height: 1000px;
-    // justify-content: space-between;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    // border: 2px solid;
     background-color: rgb(238, 26, 192);
 `;
 

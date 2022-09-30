@@ -22,7 +22,6 @@ const MessageArea = ({ currentUser }) => {
         selectMessageByUserId(state, Number(id))
     );
 
-    console.log("userSent: ", userSent);
     const userReceived = useSelector(state =>
         selectMessageByUserReceivedId(state, currentUser.id)
     );
@@ -48,7 +47,6 @@ const MessageArea = ({ currentUser }) => {
     const canSave = [receiver].every(Boolean) && addRequestStatus === "idle";
 
     const addMessage = formData => {
-        console.log("formData: ", formData);
         if (canSave) {
             try {
                 setAddRequestStatus("pending");

@@ -1,18 +1,15 @@
 import { useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 // import { useHistory } from "react-router";
 import styled from "styled-components";
 import ChatMessages from "./ChatMessages";
-import { addNewMessage, deleteChat, selectAllReplys } from "./chatSlice";
+import { addNewMessage, deleteChat } from "./chatSlice";
 
 const Chat = ({ currentUser, chat }) => {
-    console.log("chat: ", chat);
     const [message, setMessage] = useState("");
     const [addRequestStatus, setAddRequestStatus] = useState("idle");
     const dispatch = useDispatch();
-    const replys = useSelector(selectAllReplys);
-    console.log("replysStatexxxxx555: ", replys);
 
     // const history = useHistory();
 

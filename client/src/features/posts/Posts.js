@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Posts = ({ post }) => {
     return (
-        <Card className="text-center m-3">
+        <Card className="sh text-center m-3">
             <Card.Header className=" ">
                 <em>
                     Written by{" "}
