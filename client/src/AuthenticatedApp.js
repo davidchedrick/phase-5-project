@@ -6,9 +6,7 @@ import HomePage from "./features/HomePage";
 import { fetchPosts } from "./features/posts/postsSlice";
 import Post from "./features/posts/Post";
 import AddPost from "./features/posts/AddPost";
-// import PostEditor from "./features/posts/EditPost";
 import { endSession } from "./features/start/currentUserSlice";
-// import CommentsForm from "./features/posts/CommentsForm";
 import EditPost from "./features/posts/EditPost";
 import CommentPost from "./features/posts/CommentPost";
 import Profile from "./features/profile/Profile";
@@ -21,7 +19,6 @@ import { fetchMessageReplies } from "./features/messages/messageReplySlice";
 import { fetchChatReplies } from "./features/chat/chatMessageSlice";
 
 function AuthenticatedApp({ currentUser, setFetchUser }) {
-    console.log("currentUser: ", currentUser);
     const history = useHistory();
     const dispatch = useDispatch();
 

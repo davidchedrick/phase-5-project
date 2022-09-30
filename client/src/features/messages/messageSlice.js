@@ -11,7 +11,6 @@ export const fetchMessages = createAsyncThunk(
     async () => {
         const res = await fetch("/api/messages");
         const data = await res.json();
-        console.log("data:Mess ", data);
         return data;
     }
 );
@@ -28,7 +27,6 @@ export const fetchMessage = createAsyncThunk(
 export const addNewMessage = createAsyncThunk(
     "messages/addNewMessage",
     async formData => {
-        console.log("formDataxxx: ", formData);
         const res = await fetch("/api/messages", {
             method: "POST",
             headers: {
@@ -38,27 +36,9 @@ export const addNewMessage = createAsyncThunk(
             body: JSON.stringify(formData),
         });
         const data = await res.json();
-        console.log("data:xxxx ", data);
         return data;
     }
 );
-
-// export const addNewMessage = createAsyncThunk(
-//     "messages/addNewMessage",
-//     async formData => {
-//         const res = await fetch("/api/message_replies", {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//             credentials: "include",
-//             body: JSON.stringify(formData),
-//         });
-//         const data = await res.json();
-//         console.log("data:MEss", data);
-//         return data;
-//     }
-// );
 
 export const deleteMessage = createAsyncThunk(
     "messages/deleteMessage",
@@ -91,28 +71,14 @@ const messagesSlice = createSlice({
         [fetchMessages.fulfilled](state, action) {
             state.status = "succeeded";
             state.messages = state.messages.concat(action.payload);
-            // state.replys = state.replys.concat(action.payload);
         },
         [fetchMessages.rejected](state, action) {
             state.status = "failed";
             state.error = action.error.message;
         },
-        // [fetchMessage.pending](state) {
-        //     state.status = "loading";
-        //     // state.message = null;
-        // },
-        // [fetchMessage.fulfilled](state, action) {
-        //     state.status = "succeeded";
-        //     state.message = action.payload;
-        // },
         [addNewMessage.fulfilled](state, action) {
             state.status = "succeeded";
             state.messages.unshift(action.payload);
-            // const newMessage = state.messages[action.payload.message_id];
-            // console.log("newMessage: ", newMessage);
-            // debugger;
-            // state.replys = state.replys.concat(action.payload);
-            // console.log("state:nnnmmmhhh ", state.messages);
         },
         [addNewMessage.fulfilled](state, action) {
             state.status = "succeeded";
@@ -146,8 +112,5 @@ export const selectMessageByUserReceivedId = (state, id) => {
         message => message.receiver_id === id
     );
 };
-// export const selectMessageReplysByUserId = (state, userId) => {
-//     return state.messages.replys.find(message => message.user_id === userId);
-// };
 
 export default messagesSlice.reducer;

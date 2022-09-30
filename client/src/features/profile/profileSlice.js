@@ -52,11 +52,6 @@ const profilesSlice = createSlice({
         [updateProfile.fulfilled](state, action) {
             console.log("action: ", action);
             state.status = "succeeded";
-            // const id = action.payload.id;
-            // console.log("id: ", id);
-            // const udpatedProfiles = state.profiles.map(profile =>
-            //     profile.id === id ? action.payload : profile
-            // );
             state.profiles = action.payload;
         },
     },

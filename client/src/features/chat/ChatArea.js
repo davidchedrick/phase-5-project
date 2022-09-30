@@ -1,25 +1,14 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-// import { useParams } from "react-router";
 import styled from "styled-components";
 import Loading from "../Loading";
 import Chat from "./Chat";
-import {
-    addNewChat,
-    fetchChats,
-    getChatsStatus,
-    selectAllChats,
-    selectAllReplys,
-    selectChatByUserId,
-} from "./chatSlice";
+import { addNewChat, getChatsStatus, selectChatByUserId } from "./chatSlice";
 
 const ChatArea = ({ currentUser }) => {
     const dispatch = useDispatch();
-    // const { id } = useParams();
 
-    // const chats = useSelector(selectAllChats);
-    // console.log("chats: vvv", chats);
     const [topic, setTopic] = useState("");
     const [newChat, setNewChat] = useState(false);
     const [addRequestStatus, setAddRequestStatus] = useState("idle");

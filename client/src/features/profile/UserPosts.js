@@ -1,7 +1,7 @@
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const UserPosts = ({ profile, currentUser }) => {
+const UserPosts = ({ profile }) => {
     const postArea = profile?.user_posts.map(post => (
         <Card key={post.id} className="text-center m-3">
             <Card.Header className="">
@@ -27,7 +27,6 @@ const UserPosts = ({ profile, currentUser }) => {
             <Card.Footer className="text-muted">{post.date}</Card.Footer>
         </Card>
     ));
-    // const postArea = profile.user_posts.map(post => console.log(post));
 
     return <h1>{postArea}</h1>;
 };

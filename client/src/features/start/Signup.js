@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { addNewUser } from "./currentUserSlice";
 
-function Signup({ setCurrentUser }) {
+function Signup() {
     const [userError, setUserError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");

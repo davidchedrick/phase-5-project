@@ -6,7 +6,6 @@ const ChatMessages = ({ chat }) => {
     const reply = useSelector(state =>
         selectMessageReplyByMessageId(state, Number(chat.id))
     );
-    console.log("reply: ", reply);
 
     const replyArea = reply.map(reply => (
         <Card.Body key={reply.id} className="chat-message m-2 ">

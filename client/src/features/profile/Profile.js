@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import Loading from "../Loading";
 import { EditProfile } from "./EditProfile";
 import UserPosts from "./UserPosts";
-// import UserProfile from "./UserProfile";
 import defaultPic from "./images/default-user-pic.png";
 import { fetchProfiles, selectProfileById } from "./profileSlice";
 import UserChat from "./UserChat";

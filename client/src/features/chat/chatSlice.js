@@ -49,31 +49,9 @@ export const addNewMessage = createAsyncThunk(
             body: JSON.stringify(formData),
         });
         const data = await res.json();
-        console.log("data:CHAT M ", data);
         return data;
     }
 );
-
-// export const updateChat = createAsyncThunk(
-//     "chats/updateChat",
-//     async formData => {
-//         try {
-//             const res = await fetch(`/api/chats/${formData.id}`, {
-//                 method: "PATCH",
-//                 headers: {
-//                     "Content-Type": "application/json",
-//                 },
-//                 credentials: "include",
-//                 body: JSON.stringify(formData),
-//             });
-//             if (res.ok) {
-//                 return formData;
-//             }
-//         } catch (err) {
-//             return err.message;
-//         }
-//     }
-// );
 
 export const deleteChat = createAsyncThunk(
     "chats/deleteChat",
@@ -106,7 +84,6 @@ const chatsSlice = createSlice({
         [fetchChats.fulfilled](state, action) {
             state.status = "succeeded";
             state.chats = state.chats.concat(action.payload);
-            // state.replys = state.replys.concat(action.payload);
         },
         [fetchChats.rejected](state, action) {
             state.status = "failed";
@@ -114,7 +91,6 @@ const chatsSlice = createSlice({
         },
         [fetchChat.pending](state) {
             state.status = "loading";
-            // state.chat = null;
         },
         [fetchChat.fulfilled](state, action) {
             state.status = "succeeded";
@@ -122,11 +98,7 @@ const chatsSlice = createSlice({
         },
         [addNewMessage.fulfilled](state, action) {
             state.status = "succeeded";
-            const newMessage = state.chats[action.payload.chat_id];
-
-            // debugger;
-            // state.replys = state.replys.concat(action.payload);
-            // console.log("state:nnnmmmhhh ", state.chats);
+            state.chat = action.payload;
         },
         [addNewChat.fulfilled](state, action) {
             state.status = "succeeded";

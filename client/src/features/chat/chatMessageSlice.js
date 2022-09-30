@@ -11,7 +11,6 @@ export const fetchChatReplies = createAsyncThunk(
     async () => {
         const res = await fetch("/api/chat_replies");
         const data = await res.json();
-        console.log("data:M CHAT REPLY ", data);
         return data;
     }
 );
@@ -19,7 +18,6 @@ export const fetchChatReplies = createAsyncThunk(
 export const addNewChatReply = createAsyncThunk(
     "chat_replies/addNewChatReply",
     async formData => {
-        console.log("formDataxxxChat: ", formData);
         const res = await fetch("/api/chat_replies", {
             method: "POST",
             headers: {
@@ -29,7 +27,6 @@ export const addNewChatReply = createAsyncThunk(
             body: JSON.stringify(formData),
         });
         const data = await res.json();
-        console.log("data:xxCHATxx ", data);
         return data;
     }
 );
@@ -62,7 +59,6 @@ export const getMessageRepliesStatus = state => state.message_replies.status;
 export const getMessageRepliesError = state => state.message_replies.error;
 
 export const selectMessageReplyByMessageId = (state, messageId) => {
-    console.log("messageId: ", messageId);
     return state.chat_replies.chatReplies.filter(
         message => message.chat_id === messageId
     );

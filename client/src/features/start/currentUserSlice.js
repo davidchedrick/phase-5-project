@@ -73,7 +73,6 @@ const currentUserSlice = createSlice({
             state.authChecked = false;
         },
         [fetchCurrentUser.fulfilled](state, action) {
-            console.log("action fetch curent: ", action);
             state.currentUser = action.payload;
 
             if (action.payload.error === "No active session") {
@@ -83,7 +82,7 @@ const currentUserSlice = createSlice({
             }
             state.status = "idle";
         },
-        [fetchCurrentUser.rejected](state, action) {
+        [fetchCurrentUser.rejected](state) {
             state.currentUser = null;
             state.authChecked = false;
             state.status = "rejected";
@@ -106,7 +105,6 @@ const currentUserSlice = createSlice({
             state.status = "loading";
         },
         [endSession.fulfilled](state, action) {
-            console.log("action logout: ", action);
             state.currentUser = null;
             state.authChecked = false;
             state.status = "idle";

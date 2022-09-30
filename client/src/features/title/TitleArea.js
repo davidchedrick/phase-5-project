@@ -2,7 +2,6 @@ import { Button } from "react-bootstrap";
 import styled from "styled-components";
 
 function TitleArea({ currentUser, useChat, setUseChat, setIsSearching }) {
-    console.log("currentUser: ", currentUser);
     return (
         <TitleDiv>
             <Button onClick={() => setUseChat(useChat => !useChat)}>

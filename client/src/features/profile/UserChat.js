@@ -3,7 +3,6 @@ import { Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import styled from "styled-components";
-import Chat from "../chat/Chat";
 import ChatMessages from "../chat/ChatMessages";
 import { addNewMessage, selectChatByUserId } from "../chat/chatSlice";
 
@@ -14,7 +13,6 @@ const UserChat = ({ currentUser, profile }) => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const chat = useSelector(state => selectChatByUserId(state, Number(id)));
-    console.log("chat: ", chat);
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -38,7 +36,6 @@ const UserChat = ({ currentUser, profile }) => {
                 console.error("Failed to save the comment", err);
             } finally {
                 setAddRequestStatus("idle");
-                // window.location.reload();
             }
         }
     }

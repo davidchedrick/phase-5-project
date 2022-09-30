@@ -11,7 +11,6 @@ export const fetchMessageReplies = createAsyncThunk(
     async () => {
         const res = await fetch("/api/message_replies");
         const data = await res.json();
-        console.log("data:MessREPLY ", data);
         return data;
     }
 );
@@ -19,7 +18,6 @@ export const fetchMessageReplies = createAsyncThunk(
 export const addNewMessageReply = createAsyncThunk(
     "messages/addNewMessageReply",
     async formData => {
-        console.log("formDataxxx: ", formData);
         const res = await fetch("/api/message_replies", {
             method: "POST",
             headers: {
@@ -29,7 +27,6 @@ export const addNewMessageReply = createAsyncThunk(
             body: JSON.stringify(formData),
         });
         const data = await res.json();
-        console.log("data:xxxx ", data);
         return data;
     }
 );

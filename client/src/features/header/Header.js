@@ -2,7 +2,7 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-function Header({ handleLogout, currentUser, setSearching }) {
+function Header({ handleLogout, currentUser }) {
     return (
         <HeaderDiv className="sticky-top p-1 ">
             <BtnDiv className="btn btn-dark" onClick={handleLogout}>

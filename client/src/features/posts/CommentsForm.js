@@ -11,8 +11,6 @@ const CommentsForm = ({ currentUser, post, id }) => {
     const [addRequestStatus, setAddRequestStatus] = useState("idle");
     const dispatch = useDispatch();
     const history = useHistory();
-    // const newComment = useSelector(addNewComment);
-    // console.log("newComment: ", newComment);
 
     const handleSubmit = e => {
         e.preventDefault();

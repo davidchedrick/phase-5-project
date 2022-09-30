@@ -1,4 +1,4 @@
-import { useHistory, useParams } from "react-router";
+import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../Loading";
 import { useState } from "react";
@@ -17,7 +17,7 @@ const MessageArea = ({ currentUser }) => {
     const { id } = useParams();
 
     const dispatch = useDispatch();
-    const history = useHistory();
+    // const history = useHistory();
     const userSent = useSelector(state =>
         selectMessageByUserId(state, Number(id))
     );
@@ -32,8 +32,7 @@ const MessageArea = ({ currentUser }) => {
     const status = state.status;
     const error = state.error;
     const [newMessage, setNewMessage] = useState(false);
-    const [newId, setNewId] = useState(null);
-    console.log("newId: ", newId);
+    // const [newId, setNewId] = useState(null);
     const [addRequestStatus, setAddRequestStatus] = useState("idle");
     const [receiver, setReceiver] = useState("");
 
@@ -53,9 +52,8 @@ const MessageArea = ({ currentUser }) => {
         if (canSave) {
             try {
                 setAddRequestStatus("pending");
-                dispatch(addNewMessage(formData))
-                    .unwrap()
-                    .then(data => setNewId(data.id));
+                dispatch(addNewMessage(formData)).unwrap();
+                // .then(data => setNewId(data.id));
 
                 setReceiver("");
             } catch (err) {
@@ -63,7 +61,6 @@ const MessageArea = ({ currentUser }) => {
             } finally {
                 setAddRequestStatus("idle");
                 // history.push(`/api/messages/${newId}`);
-                setNewId(null);
             }
         }
     };

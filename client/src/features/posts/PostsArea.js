@@ -8,11 +8,9 @@ import { selectAllPosts, getPostsStatus } from "./postsSlice";
 
 const PostsArea = ({ currentUser, isSearching }) => {
     const posts = useSelector(selectAllPosts);
-    console.log("posts: ", posts);
     const postStatus = useSelector(getPostsStatus);
     const handleSubmit = e => e.preventDefault();
     const [searchResults, setSearchResults] = useState([]);
-    console.log("searchResults: ", searchResults);
 
     const handleSearchChange = e => {
         const results = posts.filter(
@@ -27,9 +25,7 @@ const PostsArea = ({ currentUser, isSearching }) => {
     if (postStatus === "loading") {
         return <Loading />;
     }
-    // while (searchResults.length === 0) {
-    //     setSearchResults(posts);
-    // }
+
     return (
         <PostsDiv>
             {isSearching ? (

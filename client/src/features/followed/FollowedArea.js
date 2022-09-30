@@ -1,7 +1,7 @@
 import React from "react";
 
 const FollowedArea = () => {
-    return <div>rafce </div>;
+    return <div> </div>;
 };
 
 export default FollowedArea;
