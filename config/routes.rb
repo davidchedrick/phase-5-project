@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   namespace :api do
     resources :posts
     resources :chats
-    resources :chat_replies
+    resources :chat_replies, only: [:create]
     resources :messages
-    resources :message_replies
+    resources :message_replies, only: [:create]
     resources :profiles, only: [:index, :show, :update]
     resources :comments, only: [:create]
   

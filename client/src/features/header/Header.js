@@ -9,7 +9,7 @@ function Header({ handleLogout, currentUser }) {
                 <Button
                     className="btn-sm"
                     variant="outline-danger"
-                    onClick={handleLogout}
+                    // onClick={handleLogout}
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

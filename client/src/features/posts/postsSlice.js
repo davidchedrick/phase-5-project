@@ -89,7 +89,6 @@ const postsSlice = createSlice({
             state.posts.unshift(action.payload);
         },
         [updatePost.fulfilled](state, action) {
-            console.log("action: ", action);
             state.status = "succeeded";
             const id = action.payload.id;
             const udpatedPosts = state.posts.map(post =>

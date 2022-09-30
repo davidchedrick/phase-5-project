@@ -33,9 +33,10 @@ function AuthenticatedApp({ currentUser, setFetchUser }) {
     const handleLogout = () => {
         try {
             dispatch(endSession()).unwrap();
-            history.go("/");
         } catch (err) {
             console.error(err);
+        } finally {
+            history.go("/");
         }
     };
 

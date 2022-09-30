@@ -1,8 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import AuthenticatedApp from "./AuthenticatedApp";
-// import UnauthenticatedApp from "./UnauthenticatedApp";
-// import { BrowserRouter as Router } from "react-router-dom";
-// import Loading from "./features/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import {
     fetchCurrentUser,
